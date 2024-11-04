@@ -1,0 +1,25 @@
+<h3>Buscador de Anime</h3>
+<input type="text" placeholder="Anime" class="form-control mb-3" (keyup.enter)="getAnime($event)"/>
+
+<div class="container mt-2">
+  <div class="row">
+    <ng-container *ngIf="animeList.length > 0; else noResults">
+      <div class="col-lg-3 col-md-4 col-sm-6 mb-3" *ngFor="let anime of animeList"> <!-- 4 cards por linha em dispositivos grandes, 3 em médios, e 2 em pequenos -->
+        <div class="card h-100 text-center">
+          <img [src]="anime.images.jpg.image_url" class="card-img-top anime-image" alt="{{ anime.title }}">
+          <div class="card-body">
+            <h5 class="card-title">{{ anime.title }}</h5>
+            <p>{{anime.genresList}}</p>
+          </div>
+          <div class="card-footer">
+            <small class="text-muted">Episódios {{ anime.episodes || 'N/A' }}</small>
+            <p class="text-muted">Gêneros: {{ anime.formattedGenres }}</p>
+          </div>
+        </div>
+      </div> S
+    </ng-container>
+    <ng-template #noResults>
+      <p class="text-center">Nenhum anime encontrado</p>
+    </ng-template>
+  </div>
+</div>
