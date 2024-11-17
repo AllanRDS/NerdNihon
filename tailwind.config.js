@@ -1,13 +1,16 @@
 /** @type {import('tailwindcss').Config} */
+darkMode: 'class', // Adicione essa linha
 module.exports = {
   content: [
     "./src/**/*.{html,ts}",
+    "./node_modules/flowbite/**/*.js"
   ],
   theme: {
     extend: {
       colors: {
-        primary: '#9C36BE',   // Cor personalizada
-        secundary: '#0a0a0a'  // Cor personalizada
+        primary: '#7C3AED',   // Cor personalizada
+        secundary: '#0a0a0a',
+        footerbg: '#171717',  // Cor personalizada
       },
     },
     fontFamily: {
@@ -15,5 +18,7 @@ module.exports = {
       'arcade': ['Arcade Ya', 'sans-serif'],
     },
   },
-  plugins: [],
+  plugins: [
+    require('flowbite/plugin')
+  ],
 }

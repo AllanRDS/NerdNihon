@@ -1,25 +1,27 @@
-<nav class="flex p-5 bg-purple-950 text-white shadow items-center justify-between">
+<nav class="flex p-5 bg-footerbg text-white shadow items-center justify-between">
   <!-- Logo e Título -->
   <div class="flex items-center space-x-3">
+    <a href="" class="flex items-center">
+      <img src="../../../assets/icons/Coelho (1)-cropped.svg" class="h-20 w-auto overflow-clip mr-2" alt="Logo" />
+      <!-- Título -->
+      <div class="flex flex-col">
+        <h2 class="text-1xl font-arcade">Otaku</h2>
+        <h2 class="text-1xl font-arcade">Lounge</h2>
+      </div>
+    </a>
     <!-- Logo -->
-    <img src="../../../assets/icons/Coelho (1)-cropped.svg" class="h-20 w-auto" alt="Logo" />
-    <!-- Título -->
-    <div class="flex flex-col">
-      <h2 class="text-2xl font-arcade">Otaku</h2>
-      <h2 class="text-2xl font-arcade">Lounge</h2>
-    </div>
   </div>
 
   <!-- Menu para Desktop -->
   <ul class="md:flex space-x-10 hidden md:block">
     <li>
-      <a href="#" class="text-l hover:text-primary duration-500">Home</a>
+      <a href="#" class="text-l hover:text-primary transition-all duration-500">Home</a>
     </li>
     <li>
-      <a href="#" class="text-l hover:text-primary duration-500">Animes</a>
+      <a href="#" class="text-l hover:text-primary transition-all duration-500">Animes</a>
     </li>
     <li>
-      <a href="#" class="text-l hover:text-primary duration-500">Filmes</a>
+      <a href="#" class="text-l hover:text-primary transition-all duration-500">Filmes</a>
     </li>
   </ul>
 
@@ -27,11 +29,11 @@
   <div class="flex items-center space-x-4">
     <!-- Botão de Pesquisa -->
     <button class="text-2xl">
-      <ion-icon name="search"></ion-icon>
+      <ion-icon name="search" class="hover:text-primary transition-all duration-500"></ion-icon>
     </button>
     <!-- Ícone do GitHub -->
     <a href="https://github.com" target="_blank" class="text-2xl">
-      <ion-icon name="logo-github"></ion-icon>
+      <ion-icon name="logo-github" class="hover:text-primary transition-all duration-500"></ion-icon>
     </a>
     <!-- Ícone do menu para dispositivos móveis -->
     <span (click)="toggleMenu()" class="text-3xl cursor-pointer md:hidden block">
@@ -43,10 +45,10 @@
 
 <!-- Menu para dispositivos móveis -->
 <div *ngIf="isMenuVisible" class="md:hidden transition-all;
-bg-purple-950 p-5 space-y-4 text-white text-xl">
+bg-footerbg p-5 space-y-4 text-white text-xl">
   <ul>
-    <li><a href="#" class="hover:text-primary">Home</a></li>
+    <li class="mb-3"><a href="#" class="hover:text-primary">Home</a></li>
     <li><a href="#" class="hover:text-primary">Animes</a></li>
-    <li><a href="#" class="hover:text-primary">Filmes</a></li>
+    <li class="mt-3"><a href="#" class="hover:text-primary">Filmes</a></li>
   </ul>
 </div>
