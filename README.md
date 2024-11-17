@@ -52,12 +52,12 @@
 ## Como Contribuir
 
 ## Equipe
-- **Allan Reymond (Lider)
-- **Pedro Lucas Santos
-- **Amanda
-- **Rafaella
-- **Leandro
-- **Everson
+- **Allan Reymond (Lider)**
+- **Pedro Lucas Santos**
+- **Amanda**
+- **Rafaella**
+- **Leandro**
+- **Everson**
 
 ## Licença
 Este projeto está licenciado sob a [MIT License](LICENSE).
