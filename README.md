@@ -10,6 +10,8 @@
 - **API:** Jikan (API não oficial do MyAnimeList)
 - **Biblioteca UI:** Flowbite
 - **Ícones:** Ionicons
+- **Hospedagem:** Vercel
+
 
 ## Estrutura de Pastas
 
@@ -58,6 +60,12 @@
 - **Rafaella**
 - **Leandro**
 - **Everson**
+
+## Hospedagem
+
+O projeto está hospedado no Vercel. Você pode acessá-lo através do seguinte link:
+
+[Projeto Otaku Lounge no Vercel](https://seu-link-no-vercel.vercel.app)
 
 ## Licença
 Este projeto está licenciado sob a [MIT License](LICENSE).
