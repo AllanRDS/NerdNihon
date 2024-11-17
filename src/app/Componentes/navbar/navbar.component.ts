@@ -6,5 +6,11 @@ import { Component } from '@angular/core';
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent {
+ // Variável para controlar a visibilidade do menu
+  isMenuVisible: boolean = false;
 
+  // Função para alternar o estado de visibilidade do menu
+  toggleMenu(): void {
+    this.isMenuVisible = !this.isMenuVisible;
+  }
 }

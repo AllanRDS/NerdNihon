@@ -1,9 +1,52 @@
-<nav class="w-10">
-  <img src="" alt=""/>
-  <ul>
-    <li class="">Home</li>
-    <li>Animes</li>
-    <li>Filmes</li>
+<nav class="flex p-5 bg-purple-950 text-white shadow items-center justify-between">
+  <!-- Logo e Título -->
+  <div class="flex items-center space-x-3">
+    <!-- Logo -->
+    <img src="../../../assets/icons/Coelho (1)-cropped.svg" class="h-20 w-auto" alt="Logo" />
+    <!-- Título -->
+    <div class="flex flex-col">
+      <h2 class="text-2xl font-arcade">Otaku</h2>
+      <h2 class="text-2xl font-arcade">Lounge</h2>
+    </div>
+  </div>
+
+  <!-- Menu para Desktop -->
+  <ul class="md:flex space-x-10 hidden md:block">
+    <li>
+      <a href="#" class="text-l hover:text-primary duration-500">Home</a>
+    </li>
+    <li>
+      <a href="#" class="text-l hover:text-primary duration-500">Animes</a>
+    </li>
+    <li>
+      <a href="#" class="text-l hover:text-primary duration-500">Filmes</a>
+    </li>
   </ul>
-  <a href="" class="">Github</a>
+
+  <!-- Ícones à Direita -->
+  <div class="flex items-center space-x-4">
+    <!-- Botão de Pesquisa -->
+    <button class="text-2xl">
+      <ion-icon name="search"></ion-icon>
+    </button>
+    <!-- Ícone do GitHub -->
+    <a href="https://github.com" target="_blank" class="text-2xl">
+      <ion-icon name="logo-github"></ion-icon>
+    </a>
+    <!-- Ícone do menu para dispositivos móveis -->
+    <span (click)="toggleMenu()" class="text-3xl cursor-pointer md:hidden block">
+      <ion-icon *ngIf="!isMenuVisible" name="menu"></ion-icon>
+      <ion-icon *ngIf="isMenuVisible" name="close"></ion-icon>
+    </span>
+  </div>
 </nav>
+
+<!-- Menu para dispositivos móveis -->
+<div *ngIf="isMenuVisible" class="md:hidden transition-all;
+bg-purple-950 p-5 space-y-4 text-white text-xl">
+  <ul>
+    <li><a href="#" class="hover:text-primary">Home</a></li>
+    <li><a href="#" class="hover:text-primary">Animes</a></li>
+    <li><a href="#" class="hover:text-primary">Filmes</a></li>
+  </ul>
+</div>
