@@ -1,27 +1,71 @@
-# Projeto2
+# Otaku Lounge
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.10.
+## Descrição do Projeto
+**Otaku Lounge** é um projeto que utiliza a API da Jikan para mostrar animes mais famosos, mais curtidos, personagens favoritos, e permite a pesquisa de animes e filmes. Ele exibe detalhes completos sobre os animes, oferecendo uma interface interativa e moderna para os usuários. 
 
-## Development server
+## Tecnologias Utilizadas
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- **Frontend Framework:** Angular
+- **Design Framework:** Tailwind CSS
+- **API:** Jikan (API não oficial do MyAnimeList)
+- **Biblioteca UI:** Flowbite
+- **Ícones:** Ionicons
+- **Hospedagem:** Vercel
 
-## Code scaffolding
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Estrutura de Pastas
 
-## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Funcionalidades
 
-## Running unit tests
+- **Animes Famosos:** Exibição de uma lista com os animes mais populares.
+- **Animes Mais Curtidos:** Exibição de animes com mais votos ou curtidas.
+- **Personagens Favoritos:** Exibição dos personagens favoritos de uma série de anime.
+- **Pesquisa de Animes e Filmes:** Permite ao usuário pesquisar animes ou filmes pela API da Jikan.
+- **Detalhes do Anime:** Exibição de detalhes completos sobre um anime (sinopse, gênero, elenco, etc.).
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Como Rodar o Projeto
 
-## Running end-to-end tests
+1. Clone o repositório:
+    ```bash
+    git clone <url-do-repositório>
+    ```
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+2. Navegue até a pasta do projeto:
+    ```bash
+    cd otaku-lounge
+    ```
 
-## Further help
+3. Instale as dependências:
+    ```bash
+    npm install
+    ```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+4. Execute o servidor de desenvolvimento:
+    ```bash
+    ng serve
+    ```
+
+5. Acesse o projeto no navegador:
+    ```bash
+    http://localhost:4200
+    ```
+
+## Como Contribuir
+
+## Equipe
+- **Allan Reymond (Lider)**
+- **Pedro Lucas Santos**
+- **Amanda**
+- **Rafaella**
+- **Leandro**
+- **Everson**
+
+## Hospedagem
+
+O projeto está hospedado no Vercel. Você pode acessá-lo através do seguinte link:
+
+[Projeto Otaku Lounge no Vercel](https://seu-link-no-vercel.vercel.app)
+
+## Licença
+Este projeto está licenciado sob a [MIT License](LICENSE).
