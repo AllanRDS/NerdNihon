@@ -17,7 +17,7 @@
 
 
 ## Funcionalidades
-
+- **Carrosel com Animes da Temporada:** Exibição dos Animes da temporada.
 - **Animes Famosos:** Exibição de uma lista com os animes mais populares.
 - **Animes Mais Curtidos:** Exibição de animes com mais votos ou curtidas.
 - **Personagens Favoritos:** Exibição dos personagens favoritos de uma série de anime.
