@@ -10,6 +10,7 @@ import { AnimeComponent } from './Paginas/anime/anime.component';
 import { FilmeComponent } from './Paginas/filme/filme.component';
 import { NavbarComponent } from './Componentes/navbar/navbar.component';
 import { FooterComponent } from './Componentes/footer/footer.component';
+import { CarroselCardsComponent } from './Componentes/carrosel-cards/carrosel-cards.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { FooterComponent } from './Componentes/footer/footer.component';
     AnimeComponent,
     FilmeComponent,
     NavbarComponent,
-    FooterComponent
+    FooterComponent,
+    CarroselCardsComponent
   ],
   imports: [
     BrowserModule,
