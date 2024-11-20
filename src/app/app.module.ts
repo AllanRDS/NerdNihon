@@ -11,6 +11,7 @@ import { FilmeComponent } from './Paginas/filme/filme.component';
 import { NavbarComponent } from './Componentes/navbar/navbar.component';
 import { FooterComponent } from './Componentes/footer/footer.component';
 import { CarroselCardsComponent } from './Componentes/carrosel-cards/carrosel-cards.component';
+import { TruncatePipe } from './Pipes/truncate.pipe';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { CarroselCardsComponent } from './Componentes/carrosel-cards/carrosel-ca
     FilmeComponent,
     NavbarComponent,
     FooterComponent,
-    CarroselCardsComponent
+    CarroselCardsComponent,
+    TruncatePipe
   ],
   imports: [
     BrowserModule,

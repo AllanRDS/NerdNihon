@@ -13,7 +13,7 @@
 
 .relative {
   width: 12rem; /* Tamanho padrão para telas pequenas */
-  height: 12rem; /* Tamanho padrão para telas pequenas */
+  height: 15rem; /* Tamanho padrão para telas pequenas */
 }
 
 img {
@@ -34,21 +34,21 @@ img {
 /* Media Queries para Responsividade */
 @media (min-width: 640px) {
   .relative {
-    width: 16rem; /* Tamanho para telas pequenas e acima */
-    height: 16rem; /* Tamanho para telas pequenas e acima */
+    width: 11rem; /* Tamanho para telas pequenas e acima */
+    height: 15rem; /* Tamanho para telas pequenas e acima */
   }
 }
 
 @media (min-width: 768px) {
   .relative {
-    width: 18rem; /* Tamanho para telas médias e acima */
-    height: 18rem; /* Tamanho para telas médias e acima */
+    width: 11rem; /* Tamanho para telas médias e acima */
+    height: 15rem; /* Tamanho para telas médias e acima */
   }
 }
 
 @media (min-width: 1024px) {
   .relative {
-    width: 20rem; /* Tamanho para telas grandes e acima */
-    height: 20rem; /* Tamanho para telas grandes e acima */
+    width: 17rem; /* Tamanho para telas grandes e acima */
+    height: 25rem; /* Tamanho para telas grandes e acima */
   }
 }
