@@ -28,12 +28,17 @@ export class AnimeService {
 
   getTopAnime(): Observable <any>
   {
-    return this.http.get<any>(`${this.apiLink}/top/anime?sfw`)
+    return this.http.get<any>(`${this.apiLink}/top/anime?type=tv&sfw&filter=bypopularity`)
+  }
+
+  getTopMusic(): Observable <any>
+  {
+    return this.http.get<any>(`${this.apiLink}/top/anime?type=music&sfw&filter=bypopularity`)
   }
 
   getTopMovie(): Observable <any>
   {
-    return this.http.get<any>(`${this.apiLink}/top/anime?type=movie&sfw`)
+    return this.http.get<any>(`${this.apiLink}/top/anime?type=movie&sfw&filter=bypopularity`)
   }
 
   getCurrentAnimeSeason(): Observable<any>
