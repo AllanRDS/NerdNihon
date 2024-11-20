@@ -16,6 +16,7 @@ import { CardListSelectorComponent } from './Componentes/card-list-selector/card
 import { FormsModule } from '@angular/forms';
 import { TransicaoComponent } from './Componentes/transicao/transicao.component';
 import { CarroselCardsPComponent } from './Componentes/carrosel-cards-p/carrosel-cards-p.component';
+import { RouterModule } from '@angular/router';
 
 
 @NgModule({
@@ -39,7 +40,8 @@ import { CarroselCardsPComponent } from './Componentes/carrosel-cards-p/carrosel
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    RouterModule
   ],
   providers: [
     provideClientHydration(),

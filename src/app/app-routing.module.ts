@@ -7,7 +7,9 @@ import { FilmeComponent } from './Paginas/filme/filme.component';
 const routes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'anime', component: AnimeComponent},
-  {path: 'filme', component: FilmeComponent}
+  {path: 'filme', component: FilmeComponent},
+  { path: '**', redirectTo: '' } // Rota de fallback
+
 ];
 
 @NgModule({
