@@ -41,6 +41,11 @@ export class AnimeService {
     return this.http.get<any>(`${this.apiLink}/top/anime?type=movie&sfw&filter=bypopularity`)
   }
 
+  getTopCharacters(): Observable <any>
+  {
+    return this.http.get<any>(`${this.apiLink}/top/characters`)
+  }
+
   getCurrentAnimeSeason(): Observable<any>
   {
     return this.http.get<any>(`${this.apiLink}/seasons/now?sfw`)
