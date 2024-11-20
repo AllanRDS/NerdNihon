@@ -1,0 +1,26 @@
+.card-item {
+  @apply cursor-pointer;
+  transition: transform 0.3s ease;
+}
+
+.card-item:hover {
+  transform: scale(1.05);
+}
+
+.category-button {
+  @apply px-4 py-2 rounded-md transition-colors duration-300;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.category-button:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.category-button {
+  transition: all 0.3s ease;
+}
+
+.category-button.active {
+  color: #7C3AED;
+  border-bottom: 2px solid #7C3AED;
+}

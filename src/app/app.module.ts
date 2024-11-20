@@ -12,6 +12,8 @@ import { NavbarComponent } from './Componentes/navbar/navbar.component';
 import { FooterComponent } from './Componentes/footer/footer.component';
 import { CarroselCardsComponent } from './Componentes/carrosel-cards/carrosel-cards.component';
 import { TruncatePipe } from './Pipes/truncate.pipe';
+import { CardListSelectorComponent } from './Componentes/card-list-selector/card-list-selector.component';
+import { FormsModule } from '@angular/forms'; // Adicione esta importação
 
 @NgModule({
   declarations: [
@@ -24,11 +26,15 @@ import { TruncatePipe } from './Pipes/truncate.pipe';
     NavbarComponent,
     FooterComponent,
     CarroselCardsComponent,
-    TruncatePipe
+    TruncatePipe,
+    CardListSelectorComponent,
+
+
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule
   ],
   providers: [
     provideClientHydration(),

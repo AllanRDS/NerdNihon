@@ -11,10 +11,6 @@
   display: flex; /* Flexbox para alinhar os cards horizontalmente */
 }
 
-.relative {
-  width: 12rem; /* Tamanho padrão para telas pequenas */
-  height: 15rem; /* Tamanho padrão para telas pequenas */
-}
 
 img {
   border-radius: 0.5rem; /* Arredondamento das bordas da imagem */
@@ -31,6 +27,10 @@ img {
   user-select: none; /* Impede a seleção de texto */
 }
 
+.relative {
+  width: 12rem; /* Tamanho padrão para telas pequenas */
+  height: 15rem; /* Tamanho padrão para telas pequenas */
+}
 /* Media Queries para Responsividade */
 @media (min-width: 640px) {
   .relative {

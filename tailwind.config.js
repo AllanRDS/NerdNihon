@@ -11,8 +11,9 @@ module.exports = {
         primary: '#7C3AED',   // Cor personalizada
         secundary: '#0a0a0a',
         footerbg: '#171717',  // Cor personalizada
+        cinzaModal: '#2D2D2D'
       },
-    },
+
     fontFamily: {
       'sans': ['Montserrat', 'sans-serif'],
       'arcade': ['Arcade Ya', 'sans-serif'],
@@ -21,4 +22,5 @@ module.exports = {
   plugins: [
     require('flowbite/plugin')  // Adicione o plugin do Flowbite
   ],
+}
 }
