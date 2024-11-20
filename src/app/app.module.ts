@@ -14,7 +14,9 @@ import { CarroselCardsComponent } from './Componentes/carrosel-cards/carrosel-ca
 import { TruncatePipe } from './Pipes/truncate.pipe';
 import { CardListSelectorComponent } from './Componentes/card-list-selector/card-list-selector.component';
 import { FormsModule } from '@angular/forms';
-import { TransicaoComponent } from './Componentes/transicao/transicao.component'; // Adicione esta importação
+import { TransicaoComponent } from './Componentes/transicao/transicao.component';
+import { CarroselCardsPComponent } from './Componentes/carrosel-cards-p/carrosel-cards-p.component';
+
 
 @NgModule({
   declarations: [
@@ -30,6 +32,7 @@ import { TransicaoComponent } from './Componentes/transicao/transicao.component'
     TruncatePipe,
     CardListSelectorComponent,
     TransicaoComponent,
+    CarroselCardsPComponent,
 
 
   ],

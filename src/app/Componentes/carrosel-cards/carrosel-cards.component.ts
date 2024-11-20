@@ -24,7 +24,7 @@ export class CarroselCardsComponent {
     this.animeService.getSeasonUpcoming().subscribe({
       next: (response: any) => {
         if (response && response.data) {
-          this.seasonUpcomingList = response.data.slice(0, 10); // Limitar a quantidade de animes a serem exibidos
+          this.seasonUpcomingList = response.data.slice(0, 20); // Limitar a quantidade de animes a serem exibidos
           console.log(this.seasonUpcomingList);
         } else {
           console.error('Resposta inválida:', response);
