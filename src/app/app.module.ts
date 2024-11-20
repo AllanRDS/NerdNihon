@@ -13,7 +13,8 @@ import { FooterComponent } from './Componentes/footer/footer.component';
 import { CarroselCardsComponent } from './Componentes/carrosel-cards/carrosel-cards.component';
 import { TruncatePipe } from './Pipes/truncate.pipe';
 import { CardListSelectorComponent } from './Componentes/card-list-selector/card-list-selector.component';
-import { FormsModule } from '@angular/forms'; // Adicione esta importação
+import { FormsModule } from '@angular/forms';
+import { TransicaoComponent } from './Componentes/transicao/transicao.component'; // Adicione esta importação
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { FormsModule } from '@angular/forms'; // Adicione esta importação
     CarroselCardsComponent,
     TruncatePipe,
     CardListSelectorComponent,
+    TransicaoComponent,
 
 
   ],
