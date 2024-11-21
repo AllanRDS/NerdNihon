@@ -41,7 +41,6 @@ export class AnimeComponent implements OnInit {
   }
 
   searchAnimes() {
-    this.currentPage = 1; // Adicionando esta linha
     this.isLoading = true;
     this.animeFilterService.getFilteredAnimes(
       this.searchTerm,
