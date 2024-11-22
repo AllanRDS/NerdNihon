@@ -1,10 +1,10 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild, HostListener } from '@angular/core';
 import { AnimeService } from '../../Services/anime.service';
 
 @Component({
   selector: 'carrosel-cards',
   templateUrl: './carrosel-cards.component.html',
-  styleUrls: ['./carrosel-cards.component.css'] // Corrigido 'styleUrl' para 'styleUrls'
+  styleUrls: ['./carrosel-cards.component.css']
 })
 export class CarroselCardsComponent {
   @ViewChild('carousel') carousel!: ElementRef;
@@ -24,7 +24,7 @@ export class CarroselCardsComponent {
     this.animeService.getSeasonUpcoming().subscribe({
       next: (response: any) => {
         if (response && response.data) {
-          this.seasonUpcomingList = response.data.slice(0, 20); // Limitar a quantidade de animes a serem exibidos
+          this.seasonUpcomingList = response.data.slice(0, 20);
           console.log(this.seasonUpcomingList);
         } else {
           console.error('Resposta inválida:', response);
@@ -37,39 +37,61 @@ export class CarroselCardsComponent {
     });
   }
 
+  // Método para iniciar arrasto com mouse
   startDrag(event: MouseEvent) {
+    this.initDrag(this.getClientX(event));
+  }
+
+  // Método para iniciar arrasto com touch
+  startTouch(event: TouchEvent) {
+    this.initDrag(this.getClientX(event));
+    event.preventDefault(); // Previne scroll padrão
+  }
+
+  // Método genérico para iniciar arrasto
+  private initDrag(clientX: number) {
     this.isDragging = true;
-    this.startX = event.pageX - this.carousel.nativeElement.offsetLeft;
-    this.scrollLeft = this.carousel.nativeElement.scrollLeft; // Mudei para pegar a posição de rolagem atual
+    this.startX = clientX - this.carousel.nativeElement.offsetLeft;
+    this.scrollLeft = this.carousel.nativeElement.scrollLeft;
     this.carousel.nativeElement.style.cursor = 'grabbing';
   }
 
+  // Método de arrasto
+  drag(event: MouseEvent | TouchEvent) {
+    if (!this.isDragging) return;
+
+    event.preventDefault();
+    const clientX = this.getClientX(event);
+    const x = clientX - this.carousel.nativeElement.offsetLeft;
+    const walk = (x - this.startX) * 2;
+
+    let newScrollLeft = this.scrollLeft - walk;
+    const maxScrollLeft = this.carousel.nativeElement.scrollWidth - this.carousel.nativeElement.clientWidth;
+
+    if (newScrollLeft < 0) {
+      newScrollLeft = 0;
+    } else if (newScrollLeft > maxScrollLeft) {
+      newScrollLeft = maxScrollLeft;
+    }
+
+    this.carousel.nativeElement.scrollLeft = newScrollLeft;
+  }
+
+  // Método para finalizar arrasto
   endDrag() {
     this.isDragging = false;
     this.carousel.nativeElement.style.cursor = 'grab';
   }
 
-  drag(event: MouseEvent) {
-    if (!this.isDragging) return;
-
-    event.preventDefault();
-    const x = event.pageX - this.carousel.nativeElement.offsetLeft;
-    const walk = (x - this.startX) * 2; // Aumenta a velocidade do deslizamento
-    let newScrollLeft = this.scrollLeft - walk; // Calcular nova posição de rolagem
-
-    // Limita o deslizar para não passar do primeiro e do último card
-    const maxScrollLeft = this.carousel.nativeElement.scrollWidth - this.carousel.nativeElement.clientWidth;
-
-    if (newScrollLeft < 0) {
-      newScrollLeft = 0; // Limite para não passar do primeiro card
-    } else if (newScrollLeft > maxScrollLeft) {
-      newScrollLeft = maxScrollLeft; // Limite para não passar do último card
-    }
-
-    this.carousel.nativeElement.scrollLeft = newScrollLeft; // Atualiza a posição de rolagem
+  // Método para obter coordenada X de forma genérica
+  private getClientX(event: MouseEvent | TouchEvent): number {
+    return event instanceof MouseEvent
+      ? event.clientX
+      : event.touches[0].clientX;
   }
 
+  // Prevenir comportamento padrão de arrasto
   preventDrag(event: DragEvent) {
-    event.preventDefault(); // Previne o comportamento padrão de arrastar
+    event.preventDefault();
   }
 }
