@@ -1,21 +1,22 @@
 import { Component } from '@angular/core';
 import { AnimeService } from '../../Services/anime.service';
 import { finalize, catchError } from 'rxjs/operators';
-import { FormsModule } from '@angular/forms'; // Opcional se estiver no módulo
+import { FormsModule } from '@angular/forms';
 import { of } from 'rxjs';
+import { Router } from '@angular/router';
 
 interface ImageUrls {
   image_url: string;
   small_image_url: string;
-  large_image_url: string; // Adicionado
+  large_image_url: string;
 }
 
 interface AnimeResult {
   mal_id: number;
   title: string;
   images: {
-    jpg: ImageUrls;  // Atualizado para incluir large_image_url
-    webp: ImageUrls; // Adicionado suporte para webp
+    jpg: ImageUrls;
+    webp: ImageUrls;
   };
   type: string;
   year?: number;
@@ -35,7 +36,10 @@ export class NavbarComponent {
   isLoading = false;
   errorMessage: string | null = null;
 
-  constructor(private animeService: AnimeService) {}
+  constructor(
+    private animeService: AnimeService,
+    private router: Router
+  ) {}
 
   toggleMenu(): void {
     this.isMenuVisible = !this.isMenuVisible;
@@ -43,7 +47,6 @@ export class NavbarComponent {
 
   openSearchModal(): void {
     this.isSearchModalOpen = true;
-    // Opcional: foco no input
     setTimeout(() => {
       const searchInput = document.getElementById('search-input');
       if (searchInput) {
@@ -65,18 +68,16 @@ export class NavbarComponent {
   }
 
   searchAnimes(): void {
-    // Validação mais robusta
     if (!this.searchTerm || this.searchTerm.trim().length < 2) {
       this.errorMessage = 'Por favor, digite pelo menos 2 caracteres';
       return;
     }
 
-    // Reset previous state
     this.searchResults = [];
     this.errorMessage = null;
     this.isLoading = true;
 
-    this.animeService.getAnimes(this.searchTerm.trim())
+    this.animeService.getAnimesMovies(this.searchTerm.trim())
       .pipe(
         catchError(error => {
           console.error('Erro na pesquisa', error);
@@ -92,18 +93,16 @@ export class NavbarComponent {
           if (response && response.data) {
             this.searchResults = response.data.slice(0, 10);
 
-            // Adiciona tratamento caso não encontre resultados
             if (this.searchResults.length === 0) {
-              this.errorMessage = `Nenhum anime encontrado para "${this.searchTerm}"`;
+              this.errorMessage = `Nenhum anime ou filme encontrado para "${this.searchTerm}"`;
             }
           }
         }
       });
   }
 
-  // Método para navegar para detalhes do anime (opcional)
   navigateToAnimeDetails(animeId: number): void {
-    // Implemente a navegação para página de detalhes
-    console.log(`Navegando para detalhes do anime ${animeId}`);
+    this.closeSearchModal();
+    this.router.navigate(['/anime-details', animeId]);
   }
 }

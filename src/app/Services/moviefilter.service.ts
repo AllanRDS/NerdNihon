@@ -5,7 +5,7 @@ import { Observable, map } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class AnimefilterService {
+export class MoviefilterService {
   apiLink = "https://api.jikan.moe/v4";
 
   // Armazenar mapeamento de gêneros
@@ -27,7 +27,7 @@ export class AnimefilterService {
   }
 
   // Método de filtro com parâmetros opcionais
-  getFilteredAnimes(
+  getFilteredFilmes(
     searchTerm: string = '',
     page: number = 1,
     genre: string = '',
@@ -36,7 +36,7 @@ export class AnimefilterService {
     // Criar HttpParams para construir URL
     let params = new HttpParams()
       .set('sfw', 'true')
-      .set('type', 'tv')
+      .set('type', 'movie')
       .set('page', page.toString());
 
     // Adiciona termo de busca se existir
@@ -64,7 +64,7 @@ export class AnimefilterService {
   }
 
   // Anos para o select (pode ser gerado dinamicamente)
-  getAnimeYears(): string[] {
+  getFilmesYears(): string[] {
     const currentYear = new Date().getFullYear();
     return Array.from(
       {length: 10},
@@ -72,7 +72,7 @@ export class AnimefilterService {
     );
   }
 
-  getInitialAnimes(page: number) {
-    return this.http.get<any>(`${this.apiLink}/anime?type=tv&page=${page}&order_by=popularity`);
+  getInitialFilmes(page: number) {
+    return this.http.get<any>(`${this.apiLink}/anime?type=movie&page=${page}&order_by=popularity`);
   }
 }
