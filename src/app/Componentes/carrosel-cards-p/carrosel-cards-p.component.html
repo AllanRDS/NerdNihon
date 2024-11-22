@@ -54,7 +54,8 @@
           class="w-full h-full rounded-lg object-cover" (dragstart)="preventDrag($event)" />
 
         <!-- Name Overlay -->
-        <div class="absolute bottom-0 left-0 right-0 bg-black/70 p-2 rounded-b-lg <h3 class="text-white text-sm font-semibold text-center">
+        <div class="absolute bottom-0 left-0 right-0 bg-black/70 p-2 rounded-b-lg">
+          <h3 class="text-white text-sm font-semibold text-center">
             {{ character.name | truncate:20 }}
           </h3>
         </div>
