@@ -17,6 +17,8 @@ import { FormsModule } from '@angular/forms';
 import { TransicaoComponent } from './Componentes/transicao/transicao.component';
 import { CarroselCardsPComponent } from './Componentes/carrosel-cards-p/carrosel-cards-p.component';
 import { RouterModule } from '@angular/router';
+import { CoreModule } from './core/core.module';
+
 
 
 @NgModule({
@@ -41,7 +43,8 @@ import { RouterModule } from '@angular/router';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    RouterModule
+    RouterModule,
+    CoreModule
   ],
   providers: [
     provideClientHydration(),
