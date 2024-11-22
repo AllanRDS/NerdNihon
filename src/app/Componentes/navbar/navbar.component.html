@@ -48,9 +48,9 @@
   </div>
 </nav>
 
-<div *ngIf="isMenuVisible" class="md:hidden transition-all bg-footerbg p-5 space-y-4 text-white text-xl">
-  <ul>
-    <li class="mb-3">
+<div *ngIf="isMenuVisible" class="md:hidden transition-all bg-footerbg p-5 text-white text-xl">
+  <ul class="space-y-4 flex flex-col items-center">
+    <li>
       <a
         [routerLink]="['/']"
         routerLinkActive="text-primary"
@@ -62,79 +62,72 @@
       <a
         [routerLink]="['/anime']"
         routerLinkActive="text-primary"
-        class="text-l hover:text-primary transition-all duration-500"
+        class="hover:text-primary"
       >Animes</a>
     </li>
     <li>
       <a
         [routerLink]="['/filme']"
         routerLinkActive="text-primary"
-        class="text-l hover:text-primary transition-all duration-500"
+        class="hover:text-primary"
       >Filmes</a>
     </li>
   </ul>
 </div>
 
-<!-- Modal de Pesquisa -->
 <div *ngIf="isSearchModalOpen" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
-  <div class="bg-footerbg p-6 rounded-lg w-11/12 max-w-md max-h-[80vh] overflow-y-auto">
+  <div class="bg-white rounded-lg p-6 w-full max-w-md mx-4">
     <div class="flex justify-between items-center mb-4">
-      <h2 class="text-xl font-bold text-white">Pesquisar</h2>
-      <button (click)="closeSearchModal()" class="text-2xl">
-        <ion-icon name="close" class="text-white"></ion-icon>
+      <h2 class="text-xl font-bold text-black">Pesquisar Anime</h2>
+      <button
+        (click)="closeSearchModal()"
+        class="text-gray-500 hover:text-gray-700"
+      >
+        <ion-icon name="close" class="text-2xl"></ion-icon>
       </button>
     </div>
 
-    <div class="flex mb-4">
+    <div class="mb-4">
       <input
-        id="search-input"
         type="text"
+        id="search-input"
         [(ngModel)]="searchTerm"
         (keyup.enter)="searchAnimes()"
         placeholder="Digite o nome do anime"
-        class="w-full p-2 rounded focus:outline-none focus:ring-2 focus:ring-primary"
-        style="
-        background-color: #2D2D2D;
-        outline: none;
-        box-shadow: 0 0 0 2px rgb(124 58 237 / var(--tw-ring-opacity, 1));
-        border-color: transparent;
-        color: white
-        ;"
+        class="w-full p-2 border rounded text-black"
       />
       <button
         (click)="searchAnimes()"
-        class="ml-2 bg-primary text-white p-2 rounded flex items-center justify-center"
+        class="mt-2 w-full bg-primary text-white p-2 rounded hover:bg-opacity-80"
       >
-        <ion-icon name="search" class="text-xl"></ion-icon>
+        Pesquisar
       </button>
     </div>
 
-    <!-- Mensagem de Erro -->
-    <div *ngIf="errorMessage" class="text-red-500 mb-4 text-center">
+    <div *ngIf="isLoading" class="text-center">
+      <p>Carregando...</p>
+    </div>
+
+    <div *ngIf="errorMessage" class="text-red-500 mb-4">
       {{ errorMessage }}
     </div>
 
-    <!-- Estado de Carregamento -->
-    <div *ngIf="isLoading" class="flex justify-center items-center">
-      <span class="animate-spin">🔄</span>
-      <span class="ml-2 text-white">Carregando...</span>
-    </div>
-
-    <!-- Resultados de Pesquisa -->
-    <div *ngIf="!isLoading && searchResults.length > 0" class="grid gap-4">
-      <div *ngFor="let anime of searchResults"
-        class="flex items-center bg-[#2D2D2D] rounded-2xl p-3 hover:bg-gray-600 transition cursor-pointer"
-        (click)="navigateToAnimeDetails(anime.mal_id)">
+    <div *ngIf="searchResults.length > 0" class="max-h-96 overflow-y-auto">
+      <div
+        *ngFor="let anime of searchResults"
+        (click)="navigateToAnimeDetails(anime.mal_id)"
+        class="flex items-center mb-3 cursor-pointer hover:bg-gray-100 p-2 rounded"
+      >
         <img
-        [src]="anime.images.jpg.large_image_url || ''"
-        [alt]="anime.title"
-        class="w-24 h-26 object-cover mr-4 rounded-xl"
-      />
+          [src]="anime.images.jpg.small_image_url"
+          alt="{{ anime.title }}"
+          class="w-16 h-24 object-cover mr-4"
+        />
         <div>
-          <h3 class="font-bold text-white">{{ anime.title }}</h3>
-          <p class="text-sm text-white">
+          <h3 class="font-bold text-black">{{ anime.title }}</h3>
+          <p class="text-gray-600">
             {{ anime.type }}
-            {{ anime.year ? '- ' + anime.year : '' }}
+            <span *ngIf="anime.year">- {{ anime.year }}</span>
           </p>
         </div>
       </div>
