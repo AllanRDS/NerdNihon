@@ -18,6 +18,11 @@ import { TransicaoComponent } from './Componentes/transicao/transicao.component'
 import { CarroselCardsPComponent } from './Componentes/carrosel-cards-p/carrosel-cards-p.component';
 import { RouterModule } from '@angular/router';
 import { CoreModule } from './core/core.module';
+import localePt from '@angular/common/locales/pt';
+import { registerLocaleData } from '@angular/common';
+
+registerLocaleData(localePt);
+
 
 
 

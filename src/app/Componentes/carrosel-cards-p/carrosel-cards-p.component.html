@@ -45,7 +45,7 @@
         <div class="absolute top-2 right-2 z-10 bg-black/70 rounded-full overflow-hidden">
           <div class="flex items-center px-2 py-1">
             <ion-icon name="heart" class="text-red-500 mr-1 text-xs"></ion-icon>
-            <span class="text-white text-xs">{{ character.favorites }}</span>
+            <span class="text-white text-xs">{{ character.favorites | number:'1.0-0':'pt-BR' }}</span>
           </div>
         </div>
 
