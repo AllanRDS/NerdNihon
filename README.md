@@ -63,57 +63,61 @@ projeto-OtakuLounge/
 ├── 🌈 tailwind.config.js
 └── 🛠️ tsconfig.json
 ```
-## Funcionalidades
-- **Carrosel com Animes da Temporada:** Exibição dos Animes da temporada.
-- **Animes Famosos:** Exibição de uma lista com os animes mais populares.
-- **Animes Mais Curtidos:** Exibição de animes com mais votos ou curtidas.
-- **Personagens Favoritos:** Exibição dos personagens favoritos de uma série de anime.
-- **Pesquisa de Animes e Filmes:** Permite ao usuário pesquisar animes ou filmes pela API da Jikan.
-- **Detalhes do Anime:** Exibição de detalhes completos sobre um anime (sinopse, gênero, elenco, etc.).
+## ✨ Funcionalidades
+- **🎠 Carrosel com Animes da Temporada:** Exibição dos Animes da temporada.
+- **🏆 Animes Famosos:** Exibição de uma lista com os animes mais populares.
+- **👍 Animes Mais Curtidos:** Exibição de animes com mais votos ou curtidas.
+- **⭐ Personagens Favoritos:** Exibição dos personagens favoritos de uma série de anime.
+- **🔍 Pesquisa de Animes e Filmes:** Permite ao usuário pesquisar animes ou filmes pela API da Jikan.
+- **📋 Detalhes do Anime:** Exibição de detalhes completos sobre um anime (sinopse, gênero, elenco, etc.).
 
-## Como Rodar o Projeto
+## 🚀 Como Rodar o Projeto
 
-1. Clone o repositório:
+1. 📦 Clone o repositório:
     ```bash
     git clone <url-do-repositório>
     ```
 
-2. Navegue até a pasta do projeto:
+2. 📂 Navegue até a pasta do projeto:
     ```bash
     cd otaku-lounge
     ```
 
-3. Instale as dependências:
+3. 🔧 Instale as dependências:
     ```bash
     npm install
     ```
 
-4. Execute o servidor de desenvolvimento:
+4. 🌐 Execute o servidor de desenvolvimento:
     ```bash
     ng serve
     ```
 
-5. Acesse o projeto no navegador:
+5. 🖥️ Acesse o projeto no navegador:
     ```bash
     http://localhost:4200
     ```
 
-## Como Contribuir
+## 🤝 Como Contribuir
+- Faça um fork do projeto
+- Crie uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
+- Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
+- Push para a branch (`git push origin feature/AmazingFeature`)
+- Abra um Pull Request
 
-## Equipe
-- **Allan Reymond (Lider)**
-- **Pedro Lucas Santos**
-- **Amanda**
-- **Rafaella**
-- **Leandro**
-- **Everson**
+## 👥 Equipe
+- **👨‍💻 Allan Reymond (Lider)**
+- **👨‍💻 Pedro Lucas Santos**
+- **👩‍💻 Amanda**
+- **👩‍💻 Rafaella**
+- **👨‍💻 Leandro**
+- **👨‍💻 Everson**
 
-## Hospedagem
+## 🌐 Hospedagem
 
 O projeto está hospedado no Vercel. Você pode acessá-lo através do seguinte link:
 
+🔗 [Projeto Otaku Lounge no Vercel](otaku-lounge.vercel.app)
 
-[Projeto Otaku Lounge no Vercel](otaku-lounge.vercel.app)
-
-## Licença
-Este projeto está licenciado sob a [MIT License](LICENSE).
+## 📄 Licença
+Este projeto está licenciado sob a [MIT License](LICENSE). 📋
