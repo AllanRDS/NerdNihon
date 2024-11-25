@@ -69,7 +69,6 @@ projeto-OtakuLounge/
 - **👍 Animes Mais Curtidos:** Exibição de animes com mais votos ou curtidas.
 - **⭐ Personagens Favoritos:** Exibição dos personagens favoritos de uma série de anime.
 - **🔍 Pesquisa de Animes e Filmes:** Permite ao usuário pesquisar animes ou filmes pela API da Jikan.
-- **📋 Detalhes do Anime:** Exibição de detalhes completos sobre um anime (sinopse, gênero, elenco, etc.).
 
 ## 🚀 Como Rodar o Projeto
 
