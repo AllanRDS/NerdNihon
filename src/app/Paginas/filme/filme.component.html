@@ -63,35 +63,46 @@
   </div>
 
   <div *ngIf="!isLoading" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-    <div *ngFor="let filme of filmes" class="bg-[#171717] rounded-xl shadow-lg overflow-hidden transform transition-all hover:scale-105 hover:shadow-xl cursor-pointer">
-      <div class="relative">
+    <div
+      *ngFor="let filme of filmes"
+      class="bg-[#1c1c1c] rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-2xl hover:brightness-110 hover:-translate-y-2"
+    >
+      <div class="relative cursor-pointer">
         <img
           [src]="filme.images?.jpg?.large_image_url || 'assets/placeholder-image.png'"
           [alt]="filme.title"
           class="w-full h-72 object-cover"
         />
-        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
-          <h3 class="text-white font-bold text-lg line-clamp-2">{{filme.title}}</h3>
-          <span class="text-gray-300 text-sm">
-            Gêneros:
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/85 pointer-events-none"></div>
+
+        <div class="absolute bottom-0 left-0 right-0 p-4 text-white">
+          <h3 class="text-xl font-bold mb-1 line-clamp-2 drop-shadow-lg">{{filme.title}}</h3>
+          <div class="text-sm opacity-90 line-clamp-2 drop-shadow-md">
+            <span class="font-semibold">Gêneros: </span>
             <ng-container *ngIf="filme.genres && filme.genres.length > 0">
               <ng-container *ngFor="let genre of filme.genres; let last = last">
                 {{ genre.name }}<span *ngIf="!last">, </span>
               </ng-container>
             </ng-container>
             <span *ngIf="!filme.genres || filme.genres.length === 0">N/A</span>
-          </span>
+          </div>
         </div>
+
         <div class="absolute top-2 right-2 bg-primary text-white px-2 py-1 rounded-full text-sm font-bold">
           {{filme.score | number:'1.1-1'}}
         </div>
       </div>
-      <div class="p-4">
+
+      <div class="p-3 bg-[#1c1c1c]">
         <div class="flex justify-between items-center">
-          <span class="text-gray-600">Ano: {{extractYear(filme)}}</span>
+          <span class="text-gray-400 text-sm">Ano: {{extractYear(filme)}}</span>
         </div>
       </div>
     </div>
+  </div>
+
+  <div *ngIf="!isLoading && filmes.length === 0" class="text-center text-gray-400 mt-8">
+    <p>Nenhum filme encontrado.</p>
   </div>
 
   <!-- Paginação -->
