@@ -18,27 +18,35 @@ export class HoverZoomListDirective {
     const content = this.el.nativeElement.querySelector('.card-content');
     const starIcon = this.el.nativeElement.querySelector('ion-icon');
 
-    // Aumentar a opacidade e aplicar efeito de zoom
-    if (content) {
-      this.renderer.setStyle(content, 'opacity', '1'); // Aumenta a opacidade do texto
-      this.renderer.setStyle(this.el.nativeElement, 'transform', 'scale(1.05)'); // Aplica o efeito de zoom
+    // Verifica se a largura da tela é maior ou igual a 768px (tamanho md do Tailwind)
+    if (window.innerWidth >= 768) {
+      if (content) {
+        this.renderer.setStyle(content, 'opacity', '1'); // Aumenta a opacidade do texto
+      }
+      if (starIcon) {
+        this.renderer.setStyle(starIcon, 'opacity', '1'); // Aumenta a opacidade do ícone
+      }
     }
-    if (starIcon) {
-      this.renderer.setStyle(starIcon, 'opacity', '1'); // Aumenta a opacidade do ícone
-    }
+
+    // Aplica o efeito de zoom
+    this.renderer.setStyle(this.el.nativeElement, 'transform', 'scale(1.05)'); // Aplica o efeito de zoom
   }
 
   private resetHoverEffects() {
     const content = this.el.nativeElement.querySelector('.card-content');
     const starIcon = this.el.nativeElement.querySelector('ion-icon');
 
-    // Reduzir a opacidade e remover o efeito de zoom
-    if (content) {
-      this.renderer.setStyle(content, 'opacity', '0'); // Reduz a opacidade do texto para 0
-      this.renderer.setStyle(this.el.nativeElement, 'transform', 'scale(1)'); // Remove o efeito de zoom
+    // Verifica se a largura da tela é maior ou igual a 768px (tamanho md do Tailwind)
+    if (window.innerWidth >= 768) {
+      if (content) {
+        this.renderer.setStyle(content, 'opacity', '0'); // Reduz a opacidade do texto para 0
+      }
+      if (starIcon) {
+        this.renderer.setStyle(starIcon, 'opacity', '0'); // Reduz a opacidade do ícone para 0
+      }
     }
-    if (starIcon) {
-      this.renderer.setStyle(starIcon, 'opacity', '0'); // Reduz a opacidade do ícone para 0
-    }
+
+    // Remove o efeito de zoom
+    this.renderer.setStyle(this.el.nativeElement, 'transform', 'scale(1)'); // Remove o efeito de zoom
   }
 }

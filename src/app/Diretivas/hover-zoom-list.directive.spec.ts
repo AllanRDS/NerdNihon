@@ -1,65 +1,98 @@
-import { TestBed, ComponentFixture } from '@angular/core/testing';
-import { HoverZoomListDirective } from './hover-zoom-list.directive';
-import { Component, ElementRef } from '@angular/core';
-import { Renderer2 } from '@angular/core';
+import { HoverZoomDirective } from './hover-zoom.directive';
+import { ElementRef, Renderer2 } from '@angular/core';
+import { TestBed } from '@angular/core/testing';
 
-@Component({
-  template: `
-    <div hoverZoomList>
-      <div class="card-item">Card 1</div>
-      <div class="card-item">Card 2</div>
-    </div>
-  `,
-})
-class TestComponent {}
+describe('HoverZoomDirective', () => {
+  let directive: HoverZoomDirective;
+  let elementRefMock: ElementRef;
+  let rendererMock: Renderer2;
 
-describe('HoverZoomListDirective', () => {
-  let component: TestComponent;
-  let fixture: ComponentFixture<TestComponent>;
+  beforeEach(() => {
+    // Criar mocks para ElementRef e Renderer2
+    elementRefMock = {
+      nativeElement: {
+        style: {}
+      }
+    } as ElementRef;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [HoverZoomListDirective, TestComponent],
-    }).compileComponents();
+    rendererMock = {
+      setStyle: jasmine.createSpy('setStyle'),
+      removeStyle: jasmine.createSpy('removeStyle')
+    } as any;
 
-    fixture = TestBed.createComponent(TestComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+    // Criar instância da diretiva com mocks
+    directive = new HoverZoomDirective(elementRefMock, rendererMock);
   });
 
   it('should create an instance', () => {
-    const elementRef = new ElementRef(fixture.nativeElement.querySelector('div[hoverZoomList]'));
-    const renderer = TestBed.inject(Renderer2); // Obtém o Renderer2 do TestBed
-    const directive = new HoverZoomListDirective(elementRef, renderer);
     expect(directive).toBeTruthy();
   });
 
-  it('should apply hover effects on mouse enter', () => {
-    const div = fixture.nativeElement.querySelector('div[hoverZoomList]');
-    const cardItems = div.children;
+  it('should apply zoom on mouse enter and change opacity if screen is md or larger', () => {
+    spyOnProperty(window, 'innerWidth').and.returnValue(800); // Simula uma tela maior que md
 
-    // Simula o evento mouseenter
-    div.dispatchEvent(new Event('mouseenter'));
-    fixture.detectChanges();
+    directive.onMouseEnter();
 
-    // Verifica se o estilo foi aplicado
-    for (let i = 0; i < cardItems.length; i++) {
-      expect(cardItems[i].style.transform).toBe('scale(1.03)');
-      expect(cardItems[i].style.transition).toBe('transform 0.4s ease');
-    }
+    expect(rendererMock.setStyle).toHaveBeenCalledWith(
+      elementRefMock.nativeElement,
+      'transform',
+      'scale(1.05)'
+    );
+    expect(rendererMock.setStyle).toHaveBeenCalledWith(
+      elementRefMock.nativeElement.querySelector('.card-content'),
+      'opacity',
+      '1'
+    );
   });
 
-  it('should remove hover effects on mouse leave', () => {
-    const div = fixture.nativeElement.querySelector('div[hoverZoomList]');
-    const cardItems = div.children;
+  it('should not change opacity on mouse enter if screen is smaller than md', () => {
+    spyOnProperty(window, 'innerWidth').and .returnValue(500); // Simula uma tela menor que md
 
-    // Simula o evento mouseleave
-    div.dispatchEvent(new Event('mouseleave'));
-    fixture.detectChanges();
+    directive.onMouseEnter();
 
-    // Verifica se o estilo foi removido
-    for (let i = 0; i < cardItems.length; i++) {
-      expect(cardItems[i].style.transform).toBe('scale(1)');
-    }
+    expect(rendererMock.setStyle).toHaveBeenCalledWith(
+      elementRefMock.nativeElement,
+      'transform',
+      'scale(1.05)'
+    );
+    expect(rendererMock.setStyle).not.toHaveBeenCalledWith(
+      elementRefMock.nativeElement.querySelector('.card-content'),
+      'opacity',
+      '1'
+    );
+  });
+
+  it('should reset zoom on mouse leave and change opacity if screen is md or larger', () => {
+    spyOnProperty(window, 'innerWidth').and.returnValue(800); // Simula uma tela maior que md
+
+    directive.onMouseLeave();
+
+    expect(rendererMock.setStyle).toHaveBeenCalledWith(
+      elementRefMock.nativeElement,
+      'transform',
+      'scale(1)'
+    );
+    expect(rendererMock.setStyle).toHaveBeenCalledWith(
+      elementRefMock.nativeElement.querySelector('.card-content'),
+      'opacity',
+      '0'
+    );
+  });
+
+  it('should not change opacity on mouse leave if screen is smaller than md', () => {
+    spyOnProperty(window, 'innerWidth').and.returnValue(500); // Simula uma tela menor que md
+
+    directive.onMouseLeave();
+
+    expect(rendererMock.setStyle).toHaveBeenCalledWith(
+      elementRefMock.nativeElement,
+      'transform',
+      'scale(1)'
+    );
+    expect(rendererMock.setStyle).not.toHaveBeenCalledWith(
+      elementRefMock.nativeElement.querySelector('.card-content'),
+      'opacity',
+      '0'
+    );
   });
 });
