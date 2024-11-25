@@ -1,21 +1,20 @@
-# Otaku Lounge
+# 🌟 Otaku Lounge
 
-## Descrição do Projeto
+## 📝 Descrição do Projeto
 **Otaku Lounge** é um projeto que utiliza a API da Jikan para mostrar animes mais famosos, mais curtidos, personagens favoritos, e permite a pesquisa de animes e filmes. Ele exibe detalhes completos sobre os animes, oferecendo uma interface interativa e moderna para os usuários. 
 
-## Tecnologias Utilizadas
+## 🚀 Tecnologias Utilizadas
 
-- **Frontend Framework:** Angular
-- **Design Framework:** Tailwind CSS
-- **API:** Jikan (API não oficial do MyAnimeList)
-- **Biblioteca UI:** Flowbite
-- **Ícones:** Ionicons
-- **Hospedagem:** Vercel
-
+- **Frontend Framework:** 🅰️ Angular
+- **Design Framework:** 🌬️ Tailwind CSS
+- **API:** 🤖 Jikan (API não oficial do MyAnimeList)
+- **Biblioteca UI:** 🎨 Flowbite
+- **Ícones:** 🎭 Ionicons
+- **Hospedagem:** ☁️ Vercel
 
 ## 📂 Estrutura do Projeto
 
-```
+```tree
 projeto-OtakuLounge/
 │
 ├── 📁 src/
@@ -64,7 +63,6 @@ projeto-OtakuLounge/
 ├── 🌈 tailwind.config.js
 └── 🛠️ tsconfig.json
 ```
-
 ## Funcionalidades
 - **Carrosel com Animes da Temporada:** Exibição dos Animes da temporada.
 - **Animes Famosos:** Exibição de uma lista com os animes mais populares.
