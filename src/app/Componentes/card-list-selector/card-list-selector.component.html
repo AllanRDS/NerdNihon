@@ -4,53 +4,25 @@
     <h2 class="text-2xl text-white font-bold ml-2 mb-0">Destaques</h2>
   </div>
 
-  <!-- Seleção de Categorias -->
-  <div class="flex space-x-4 mb-4">
-    <button
-      class="category-button text-white"
-      [ngClass]="{'active': currentCategory === 'animes'}"
-      (click)="selectCategory('animes')"
-    >
-      Animes Populares
-    </button>
-    <button
-      class="category-button text-white"
-      [ngClass]="{'active': currentCategory === 'filmes'}"
-      (click)="selectCategory('filmes')"
-    >
-      Filmes Populares
-    </button>
-    <button
-      class="category-button text-white"
-      [ngClass]="{'active': currentCategory === 'outra'}"
-      (click)="selectCategory('outra')"
-    >
-      Músicas Populares
-    </button>
-  </div>
-
   <div class="card-list grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
-    <div *ngFor="let item of filteredList" class="card-item relative rounded-lg overflow-hidden group">
+    <div *ngFor="let item of filteredList" class="card-item relative rounded-lg overflow-hidden group" hoverZoomList>
       <div class="card-image-container h-48 sm:h-56 md:h-64 w-full">
         <img
           [src]="item.images?.jpg?.large_image_url || item.poster_path"
           alt="{{ item.title }}"
-          class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+          class="w-full h-full object-cover object-center"
         />
       </div>
-      <div class="card-overlay absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-3">
-        <div class="card-content text-white">
+      <div class="card-overlay absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex flex-col justify-end p-3">
+        <div class="card-content text-white opacity-0 transition-opacity duration-500 ease">
           <h3 class="text-sm font-bold mb-1">{{ item.title | truncate:20 }}</h3>
           <div class="flex justify-between items-center">
             <span class="text-xs opacity-75">{{ item.type || item.media_type || 'Conteúdo' }}</span>
             <div class="flex items-center">
-              <ion-icon name="star" class="text-yellow-400 mr-1 text-xs"></ion-icon>
+              <ion-icon name="star" class="text-yellow-400 mr-1 text-xs opacity-75"></ion-icon>
               <span class="text-xs">{{ item.score || item.vote_average || 'N/A' }}</span>
             </div>
           </div>
-        </div>
-        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-          <ion-icon name="play-circle" class="text-white text-4xl"></ion-icon>
         </div>
       </div>
     </div>

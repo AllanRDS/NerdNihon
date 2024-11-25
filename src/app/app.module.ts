@@ -19,6 +19,8 @@ import { RouterModule } from '@angular/router';
 import { CoreModule } from './core/core.module';
 import localePt from '@angular/common/locales/pt';
 import { registerLocaleData } from '@angular/common';
+import { HoverZoomDirective } from './Diretivas/hover-zoom.directive';
+import { HoverZoomListDirective } from './Diretivas/hover-zoom-list.directive';
 
 registerLocaleData(localePt);
 
@@ -39,6 +41,8 @@ registerLocaleData(localePt);
     CardListSelectorComponent,
     TransicaoComponent,
     CarroselCardsPComponent,
+    HoverZoomDirective,
+    HoverZoomListDirective,
 
 
   ],
