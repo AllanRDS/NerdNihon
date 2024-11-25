@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MoviefilterService } from '../../Services/moviefilter.service';
+import { of, Observable, throwError } from 'rxjs';
+import { catchError, retry, map, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-filme',
@@ -11,6 +13,7 @@ export class FilmeComponent implements OnInit {
   searchTerm: string = '';
   selectedGenre: string = '';
   selectedYear: string = '';
+
   isLoading: boolean = false;
   currentPage: number = 1;
   totalPages: number = 1;
@@ -18,72 +21,95 @@ export class FilmeComponent implements OnInit {
   genres: any[] = [];
   years: string[] = [];
 
-  // Flag para identificar se é uma busca inicial ou filtrada
   private isInitialLoad: boolean = true;
+  private MAX_RETRIES = 5;
 
   constructor(private moviefilterService: MoviefilterService) {}
 
   ngOnInit() {
-    this.moviefilterService.loadGenreMapping().subscribe({
+    this.loadInitialData();
+  }
+
+  loadInitialData() {
+    this.isLoading = true;
+
+    this.moviefilterService.loadGenreMapping().pipe(
+      retry(this.MAX_RETRIES),
+      switchMap(() => this.safeLoadInitialFilmes()),
+      catchError(error => {
+        console.error('Erro fatal no carregamento inicial', error);
+        this.isLoading = false;
+        return throwError(() => new Error('Falha no carregamento inicial'));
+      })
+    ).subscribe({
       next: () => {
         this.loadGenres();
         this.loadYears();
-        this.loadInitialFilmes();
+        this.isLoading = false;
       },
-      error: (error) => {
-        console.error('Erro ao carregar mapeamento de gêneros', error);
-        this.loadGenres();
-        this.loadYears();
-        this.loadInitialFilmes();
+      error: (err) => {
+        console.error('Erro no carregamento inicial', err);
+        this.isLoading = false;
       }
     });
   }
 
-  // Método para extrair o ano do filme
-  extractYear(filme: any): string {
-    // Primeiro, tenta pegar o ano de aired.prop.from
-    if (filme.aired?.prop?.from?.year) {
-      return filme.aired.prop.from.year.toString();
-    }
+  safeLoadInitialFilmes(): Observable<any> {
+    return this.moviefilterService.getInitialFilmes(this.currentPage).pipe(
+      retry(this.MAX_RETRIES),
+      map(response => {
+        if (!response || !response.data || response.data.length === 0) {
+          throw new Error('Nenhum filme encontrado');
+        }
 
-    // Se não existir, tenta o atributo year
-    if (filme.year) {
-      return filme.year.toString();
-    }
+        this.filmes = response.data;
+        this.totalPages = response.pagination.last_visible_page;
 
-    // Se nada funcionar, retorna 'N/A'
-    return 'N/A';
+        return response;
+      }),
+      catchError(error => {
+        console.error('Erro ao carregar filmes iniciais', error);
+        return this.fallbackLoadFilmes();
+      })
+    );
+  }
+
+  fallbackLoadFilmes(): Observable<any> {
+    return this.moviefilterService.getInitialFilmes(1).pipe(
+      map(response => {
+        if (!response || !response.data || response.data.length === 0) {
+          throw new Error('Falha no carregamento de fallback');
+        }
+
+        this.filmes = response.data;
+        this.totalPages = response.pagination.last_visible_page;
+
+        return response;
+      }),
+      catchError(() => {
+        this.filmes = [];
+        this.totalPages = 1;
+        return of({ data: [], pagination: { last_visible_page: 1 } });
+      })
+    );
   }
 
   loadGenres() {
-    this.moviefilterService.getAnimeGenres().subscribe({
-      next: (response) => {
-        this.genres = response.data;
-      },
-      error: (error) => {
+    this.moviefilterService.getAnimeGenres().pipe(
+      retry(this.MAX_RETRIES),
+      catchError(error => {
         console.error('Erro ao carregar gêneros', error);
+        return of({ data: [] });
+      })
+    ).subscribe({
+      next: (response) => {
+        this.genres = response.data || [];
       }
     });
   }
 
   loadYears() {
     this.years = this.moviefilterService.getFilmesYears();
-  }
-
-  loadInitialFilmes() {
-    this.isLoading = true;
-    this.isInitialLoad = true;
-    this.moviefilterService.getInitialFilmes(this.currentPage).subscribe({
-      next: (response) => {
-        this.filmes = response.data;
-        this.totalPages = response.pagination.last_visible_page;
-        this.isLoading = false;
-      },
-      error: (error) => {
-        console.error('Erro ao carregar filmes iniciais', error);
-        this.isLoading = false;
-      }
-    });
   }
 
   searchFilmes() {
@@ -95,16 +121,24 @@ export class FilmeComponent implements OnInit {
       this.currentPage,
       this.selectedGenre,
       this.selectedYear
-    ).subscribe({
-      next: (response) => {
-        this.filmes = response.data;
-        this.totalPages = response.pagination.last_visible_page;
-        this.isLoading = false;
-      },
-      error: (error) => {
+    ).pipe(
+      retry(this.MAX_RETRIES),
+      catchError(error => {
         console.error('Erro ao buscar filmes', error);
         this.filmes = [];
         this.totalPages = 1;
+        this.isLoading = false;
+        return of({ data: [], pagination: { last_visible_page: 1 } });
+      })
+    ).subscribe({
+      next: (response) => {
+        if (response && response.data && response.data.length > 0) {
+          this.filmes = response.data;
+          this.totalPages = response.pagination.last_visible_page;
+        } else {
+          this.filmes = [];
+          this.totalPages = 1;
+        }
         this.isLoading = false;
       }
     });
@@ -140,5 +174,32 @@ export class FilmeComponent implements OnInit {
   onSearchEnter() {
     this.currentPage = 1;
     this.searchFilmes();
+  }
+
+  loadInitialFilmes() {
+    this.isLoading = true;
+    this.isInitialLoad = true;
+
+    this.safeLoadInitialFilmes().subscribe({
+      next: () => {
+        this.isLoading = false;
+      },
+      error: () => {
+        this.isLoading = false;
+      }
+    });
+  }
+
+  // Método para extrair o ano do filme
+  extractYear(filme: any): string {
+    if (filme.year) {
+      return filme.year.toString();
+    }
+
+    if (filme.aired?.from) {
+      return new Date(filme.aired.from).getFullYear().toString();
+    }
+
+    return 'N/A';
   }
 }

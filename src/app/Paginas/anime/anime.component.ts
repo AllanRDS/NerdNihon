@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AnimefilterService } from '../../Services/animefilter.service';
+import { of, Observable, throwError } from 'rxjs';
+import { catchError, retry, map, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-anime',
@@ -18,56 +20,95 @@ export class AnimeComponent implements OnInit {
   genres: any[] = [];
   years: string[] = [];
 
-  // Flag para identificar se é uma busca inicial ou filtrada
   private isInitialLoad: boolean = true;
+  private MAX_RETRIES = 5;
 
   constructor(private animeFilterService: AnimefilterService) {}
 
   ngOnInit() {
-    this.animeFilterService.loadGenreMapping().subscribe({
+    this.loadInitialData();
+  }
+
+  loadInitialData() {
+    this.isLoading = true;
+
+    this.animeFilterService.loadGenreMapping().pipe(
+      retry(this.MAX_RETRIES),
+      switchMap(() => this.safeLoadInitialAnimes()),
+      catchError(error => {
+        console.error('Erro fatal no carregamento inicial', error);
+        this.isLoading = false;
+        return throwError(() => new Error('Falha no carregamento inicial'));
+      })
+    ).subscribe({
       next: () => {
         this.loadGenres();
         this.loadYears();
-        this.loadInitialAnimes();
+        this.isLoading = false;
       },
-      error: (error) => {
-        console.error('Erro ao carregar mapeamento de gêneros', error);
-        this.loadGenres();
-        this.loadYears();
-        this.loadInitialAnimes();
+      error: (err) => {
+        console.error('Erro no carregamento inicial', err);
+        this.isLoading = false;
       }
     });
   }
 
+  safeLoadInitialAnimes(): Observable<any> {
+    return this.animeFilterService.getInitialAnimes(this.currentPage).pipe(
+      retry(this.MAX_RETRIES),
+      map(response => {
+        if (!response || !response.data || response.data.length === 0) {
+          throw new Error('Nenhum anime encontrado');
+        }
+
+        this.animes = response.data;
+        this.totalPages = response.pagination.last_visible_page;
+
+        return response;
+      }),
+      catchError(error => {
+        console.error('Erro ao carregar animes iniciais', error);
+        return this.fallbackLoadAnimes();
+      })
+    );
+  }
+
+  fallbackLoadAnimes(): Observable<any> {
+    return this.animeFilterService.getInitialAnimes(1).pipe(
+      map(response => {
+        if (!response || !response.data || response.data.length === 0) {
+          throw new Error('Falha no carregamento de fallback');
+        }
+
+        this.animes = response.data;
+        this.totalPages = response.pagination.last_visible_page;
+
+        return response;
+      }),
+      catchError(() => {
+        this.animes = [];
+        this.totalPages = 1;
+        return of({ data: [], pagination: { last_visible_page: 1 } });
+      })
+    );
+  }
+
   loadGenres() {
-    this.animeFilterService.getAnimeGenres().subscribe({
-      next: (response) => {
-        this.genres = response.data;
-      },
-      error: (error) => {
+    this.animeFilterService.getAnimeGenres().pipe(
+      retry(this.MAX_RETRIES),
+      catchError(error => {
         console.error('Erro ao carregar gêneros', error);
+        return of({ data: [] });
+      })
+    ).subscribe({
+      next: (response) => {
+        this.genres = response.data || [];
       }
     });
   }
 
   loadYears() {
     this.years = this.animeFilterService.getAnimeYears();
-  }
-
-  loadInitialAnimes() {
-    this.isLoading = true;
-    this.isInitialLoad = true;
-    this.animeFilterService.getInitialAnimes(this.currentPage).subscribe({
-      next: (response) => {
-        this.animes = response.data;
-        this.totalPages = response.pagination.last_visible_page;
-        this.isLoading = false;
-      },
-      error: (error) => {
-        console.error('Erro ao carregar animes iniciais', error);
-        this.isLoading = false;
-      }
-    });
   }
 
   searchAnimes() {
@@ -79,16 +120,24 @@ export class AnimeComponent implements OnInit {
       this.currentPage,
       this.selectedGenre,
       this.selectedYear
-    ).subscribe({
-      next: (response) => {
-        this.animes = response.data;
-        this.totalPages = response.pagination.last_visible_page;
-        this.isLoading = false;
-      },
-      error: (error) => {
+    ).pipe(
+      retry(this.MAX_RETRIES),
+      catchError(error => {
         console.error('Erro ao buscar animes', error);
         this.animes = [];
         this.totalPages = 1;
+        this.isLoading = false;
+        return of({ data: [], pagination: { last_visible_page: 1 } });
+      })
+    ).subscribe({
+      next: (response) => {
+        if (response && response.data && response.data.length > 0) {
+          this.animes = response.data;
+          this.totalPages = response.pagination.last_visible_page;
+        } else {
+          this.animes = [];
+          this.totalPages = 1;
+        }
         this.isLoading = false;
       }
     });
@@ -124,5 +173,19 @@ export class AnimeComponent implements OnInit {
   onSearchEnter() {
     this.currentPage = 1;
     this.searchAnimes();
+  }
+
+  loadInitialAnimes() {
+    this.isLoading = true;
+    this.isInitialLoad = true;
+
+    this.safeLoadInitialAnimes().subscribe({
+      next: () => {
+        this.isLoading = false;
+      },
+      error: () => {
+        this.isLoading = false;
+      }
+    });
   }
 }
