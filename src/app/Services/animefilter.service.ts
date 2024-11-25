@@ -52,18 +52,18 @@ export class AnimefilterService {
     // Adiciona ano se existir
     if (year) {
       params = params.set('start_date', `${year}-01-01`)
-                     .set('end_date', `${year}-12-31`);
+                      .set('end_date', `${year}-12-31`);
     }
 
     return this.http.get<any>(`${this.apiLink}/anime`, { params });
   }
 
-  // Lista de gêneros para o select
+  // Lista de gêneros para o dropdown
   getAnimeGenres(): Observable<any> {
     return this.http.get<any>(`${this.apiLink}/genres/anime`);
   }
 
-  // Anos para o select (pode ser gerado dinamicamente)
+  // Anos para o dropdown
   getAnimeYears(): string[] {
     const currentYear = new Date().getFullYear();
     return Array.from(

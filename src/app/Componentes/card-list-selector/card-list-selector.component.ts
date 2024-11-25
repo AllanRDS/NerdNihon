@@ -14,8 +14,7 @@ interface CacheItem {
   styleUrl: './card-list-selector.component.css'
 })
 export class CardListSelectorComponent implements OnInit {
-  // Configurações de cache
-  private readonly CACHE_DURATION = 30 * 60 * 1000; // 30 minutos
+  private readonly CACHE_DURATION = 30 * 60 * 1000;
 
   animes: any[] = [];
   movies: any[] = [];
@@ -26,20 +25,18 @@ export class CardListSelectorComponent implements OnInit {
   isLoading: boolean = false;
   loadError: string | null = null;
 
-  constructor(private animeService: AnimeService) {}
+  constructor(private animeService: AnimeService) { }
 
   ngOnInit() {
     this.loadInitialContent();
   }
 
-  // Método para recuperar cache do localStorage
   private getCachedData(key: string): CacheItem | null {
     try {
       const cachedItem = localStorage.getItem(key);
       if (cachedItem) {
         const parsedItem: CacheItem = JSON.parse(cachedItem);
 
-        // Verifica se o cache ainda é válido
         if (Date.now() - parsedItem.timestamp < this.CACHE_DURATION) {
           return parsedItem;
         }
@@ -51,7 +48,6 @@ export class CardListSelectorComponent implements OnInit {
     }
   }
 
-  // Método para salvar cache no localStorage
   private saveToCache(key: string, data: any[]) {
     try {
       const cacheItem: CacheItem = {
@@ -64,24 +60,20 @@ export class CardListSelectorComponent implements OnInit {
     }
   }
 
-  // Método genérico para carregar dados com cache
   private loadDataWithCache(
     key: string,
     serviceMethod: () => Observable<any>,
     setCacheMethod: (data: any[]) => void
   ): Observable<any> {
-    // Tentar recuperar do localStorage primeiro
     const cachedData = this.getCachedData(key);
 
-    // Se o cache for válido, retorna dados do cache
     if (cachedData) {
       setCacheMethod(cachedData.data);
       return of({ data: cachedData.data });
     }
 
-    // Se não, faz a requisição
     return serviceMethod().pipe(
-      delay(500), // Mantive um pequeno delay para sensação de carregamento
+      delay(500),
       catchError(err => {
         this.loadError = 'Erro ao carregar conteúdo';
         console.error('Erro ao carregar conteúdo', err);
@@ -95,7 +87,6 @@ export class CardListSelectorComponent implements OnInit {
       ),
       tap(response => {
         if (response?.data) {
-          // Limitar quantidade de itens e salvar no cache
           const limitedData = response.data.slice(0, 18);
           this.saveToCache(key, limitedData);
           setCacheMethod(limitedData);
@@ -160,7 +151,6 @@ export class CardListSelectorComponent implements OnInit {
     ).subscribe();
   }
 
-  // Método para pré-carregar imagens
   private preloadImages(items: any[]) {
     items.forEach(item => {
       if (item.image_url) {
@@ -170,7 +160,6 @@ export class CardListSelectorComponent implements OnInit {
     });
   }
 
-  // Método para limpar cache
   clearCache() {
     localStorage.removeItem('animes');
     localStorage.removeItem('movies');
@@ -180,7 +169,7 @@ export class CardListSelectorComponent implements OnInit {
   selectCategory(category: 'animes' | 'filmes' | 'outra') {
     this.currentCategory = category;
 
-    switch(category) {
+    switch (category) {
       case 'animes':
         this.filteredList = this.animes;
         break;

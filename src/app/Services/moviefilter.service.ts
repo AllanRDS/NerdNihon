@@ -52,7 +52,7 @@ export class MoviefilterService {
     // Adiciona ano se existir
     if (year) {
       params = params.set('start_date', `${year}-01-01`)
-                     .set('end_date', `${year}-12-31`);
+                      .set('end_date', `${year}-12-31`);
     }
 
     return this.http.get<any>(`${this.apiLink}/anime`, { params });

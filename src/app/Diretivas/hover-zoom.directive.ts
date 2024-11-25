@@ -15,7 +15,6 @@ export class HoverZoomDirective {
   }
 
   private applyHoverEffects() {
-    // Aplica o efeito de zoom a todos os elementos filhos
     const children = this.el.nativeElement.children;
     for (let i = 0; i < children.length; i++) {
       this.renderer.setStyle(children[i], 'transform', 'scale(1.05)');
@@ -24,7 +23,6 @@ export class HoverZoomDirective {
   }
 
   private removeHoverEffects() {
-    // Retorna ao estado original
     const children = this.el.nativeElement.children;
     for (let i = 0; i < children.length; i++) {
       this.renderer.setStyle(children[i], 'transform', 'scale(1)');

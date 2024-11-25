@@ -17,9 +17,9 @@
 }
 
 .card-item {
-  transition: transform 0.5s ease; /* Transição suave para o efeito de zoom */
+  transition: transform 0.5s ease;
 }
 
 .card-content {
-  transition: opacity 0.5s ease; /* Transição suave para a opacidade */
+  transition: opacity 0.5s ease;
 }

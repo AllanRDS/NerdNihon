@@ -24,18 +24,15 @@ export class CarroselCardsComponent implements OnInit, OnDestroy {
   startX = 0;
   scrollLeft = 0;
 
-  // Estado de carregamento e erro
   isLoading = false;
   loadError: string | null = null;
 
-  // Configurações de retry
   private readonly MAX_RETRIES = 3;
-  private readonly RETRY_DELAY = 2000; // 2 segundos
+  private readonly RETRY_DELAY = 2000;
 
-  // Gerenciamento de assinaturas
   private destroy$ = new Subject<void>();
 
-  constructor(private animeService: AnimeService) {}
+  constructor(private animeService: AnimeService) { }
 
   ngOnInit() {
     this.getUpcomingSeason();
@@ -47,38 +44,30 @@ export class CarroselCardsComponent implements OnInit, OnDestroy {
   }
 
   getUpcomingSeason() {
-    // Previne múltiplos carregamentos
     if (this.isLoading) return;
 
     this.isLoading = true;
     this.loadError = null;
 
     this.animeService.getSeasonUpcoming().pipe(
-      // Estratégia de retry personalizada
       retryWhen(errors =>
         errors.pipe(
           mergeMap((error, index) => {
-            // Limita número de tentativas
             if (index < this.MAX_RETRIES) {
               console.warn(`Tentativa ${index + 1} de carregar animes falhou. Tentando novamente...`);
 
-              // Notifica erro
               this.loadError = `Falha ao carregar. Tentativa ${index + 1} de ${this.MAX_RETRIES}`;
 
-              // Delay exponencial
               return of(error).pipe(delay(this.RETRY_DELAY * (index + 1)));
             }
 
-            // Se exceder máximo de tentativas, lança erro
             throw error;
           })
         )
       ),
 
-      // Adiciona um pequeno atraso para evitar contenção
       delay(300),
 
-      // Processa e filtra os dados
       tap(response => {
         if (response && response.data) {
           this.seasonUpcomingList = this.processUpcomingAnimes(response.data);
@@ -88,19 +77,16 @@ export class CarroselCardsComponent implements OnInit, OnDestroy {
         }
       }),
 
-      // Tratamento de erros
       catchError(error => {
         console.error('Erro ao carregar a lista de animes:', error);
         this.loadError = this.getErrorMessage(error);
         return throwError(() => error);
       }),
 
-      // Finaliza o estado de carregamento
       finalize(() => {
         this.isLoading = false;
       }),
 
-      // Gerencia assinaturas
       takeUntil(this.destroy$)
     ).subscribe({
       error: (err) => {
@@ -110,7 +96,6 @@ export class CarroselCardsComponent implements OnInit, OnDestroy {
     });
   }
 
-  // Processa e filtra animes
   private processUpcomingAnimes(animes: any[]): any[] {
     return animes
       .filter(anime =>
@@ -127,7 +112,6 @@ export class CarroselCardsComponent implements OnInit, OnDestroy {
       }));
   }
 
-  // Pré-carrega imagens dos animes
   private preloadAnimeImages(animes: any[]) {
     animes.forEach(anime => {
       if (anime.images?.jpg?.image_url) {
@@ -145,30 +129,25 @@ export class CarroselCardsComponent implements OnInit, OnDestroy {
     });
   }
 
-  // Método para obter mensagem de erro personalizada
   private getErrorMessage(error: any): string {
     if (error.status === 404) return 'Animes não encontrados';
     if (error.status === 500) return 'Erro interno do servidor';
     return 'Falha ao carregar animes. Verifique sua conexão.';
   }
 
-  // Método para tentar recarregar
   retryLoadAnimes() {
     this.getUpcomingSeason();
   }
 
-  // Método para iniciar arrasto com mouse
   startDrag(event: MouseEvent) {
     this.initDrag(this.getClientX(event));
   }
 
-  // Método para iniciar arrasto com touch
   startTouch(event: TouchEvent) {
     this.initDrag(this.getClientX(event));
-    event.preventDefault(); // Previne scroll padrão
+    event.preventDefault();
   }
 
-  // Método genérico para iniciar arrasto
   private initDrag(clientX: number) {
     if (!this.carousel?.nativeElement) return;
 
@@ -178,7 +157,6 @@ export class CarroselCardsComponent implements OnInit, OnDestroy {
     this.carousel.nativeElement.style.cursor = 'grabbing';
   }
 
-  // Método de arrasto
   drag(event: MouseEvent | TouchEvent) {
     if (!this.isDragging || !this.carousel?.nativeElement) return;
 
@@ -194,7 +172,6 @@ export class CarroselCardsComponent implements OnInit, OnDestroy {
     this.carousel.nativeElement.scrollLeft = newScrollLeft;
   }
 
-  // Método para finalizar arrasto
   endDrag() {
     if (!this.carousel?.nativeElement) return;
 
@@ -202,14 +179,12 @@ export class CarroselCardsComponent implements OnInit, OnDestroy {
     this.carousel.nativeElement.style.cursor = 'grab';
   }
 
-  // Método para obter coordenada X de forma genérica
   private getClientX(event: MouseEvent | TouchEvent): number {
     return event instanceof MouseEvent
       ? event.clientX
       : event.touches[0].clientX;
   }
 
-  // Prevenir comportamento padrão de arrasto
   preventDrag(event: DragEvent) {
     event.preventDefault();
   }

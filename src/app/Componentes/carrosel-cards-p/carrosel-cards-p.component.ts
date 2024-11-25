@@ -35,22 +35,18 @@ export class CarroselCardsPComponent implements OnInit, OnDestroy {
   isLoading = false;
   loadError: string | null = null;
 
-  // Configurações de retry
   private readonly MAX_RETRIES = 3;
-  private readonly RETRY_DELAY = 2000; // 2 segundos
+  private readonly RETRY_DELAY = 2000;
 
-  // Propriedades de arrasto
   isDragging = false;
   startX = 0;
   scrollLeft = 0;
 
-  // Gerenciamento de assinaturas
   private destroy$ = new Subject<void>();
 
   constructor(private animeService: AnimeService) {}
 
   ngOnInit() {
-    // Carrega personagens com pequeno atraso
     setTimeout(() => this.loadCharacters(), 1000);
   }
 
@@ -60,64 +56,49 @@ export class CarroselCardsPComponent implements OnInit, OnDestroy {
   }
 
   loadCharacters(forceReload = false) {
-    // Previne múltiplos carregamentos
     if (this.isLoading && !forceReload) return;
 
     this.isLoading = true;
     this.loadError = null;
 
     this.animeService.getTopCharacters().pipe(
-      // Estratégia de retry personalizada
       retryWhen(errors =>
         errors.pipe(
           mergeMap((error, index) => {
-            // Limita número de tentativas
             if (index < this.MAX_RETRIES) {
               console.warn(`Tentativa ${index + 1} de carregar personagens falhou. Tentando novamente...`);
 
-              // Notifica erro
               this.loadError = `Falha ao carregar. Tentativa ${index + 1} de ${this.MAX_RETRIES}`;
 
-              // Delay exponencial
               return of(error).pipe(delay(this.RETRY_DELAY * (index + 1)));
             }
 
-            // Se exceder máximo de tentativas, lança erro
             throw error;
           })
         )
       ),
-      // Pequeno atraso para melhor UX
       delay(500),
-      // Processamento dos dados
       tap(response => {
         if (response?.data) {
-          // Filtra e limita personagens
           this.charactersList = this.processCharacters(response.data);
 
-          // Pré-carrega imagens
           this.preloadCharacterImages(this.charactersList);
 
-          // Reseta erro se sucesso
           this.loadError = null;
         }
       }),
-      // Tratamento de erros
       catchError(error => {
         console.error('Erro ao carregar personagens:', error);
         this.loadError = this.getErrorMessage(error);
         return of(null);
       }),
-      // Finalização
       finalize(() => {
         this.isLoading = false;
       }),
-      // Gerenciamento de subscrição
       takeUntil(this.destroy$)
     ).subscribe();
   }
 
-  // Processa e filtra personagens
   private processCharacters(characters: any[]): Character[] {
     return characters
       .filter(char =>
@@ -134,7 +115,6 @@ export class CarroselCardsPComponent implements OnInit, OnDestroy {
       }));
   }
 
-  // Pré-carrega imagens dos personagens
   private preloadCharacterImages(characters: Character[]) {
     characters.forEach((character, index) => {
       if (character.images?.jpg?.image_url) {
@@ -152,14 +132,12 @@ export class CarroselCardsPComponent implements OnInit, OnDestroy {
     });
   }
 
-  // Método para obter mensagem de erro personalizada
   private getErrorMessage(error: any): string {
     if (error.status === 404) return 'Personagens não encontrados';
     if (error.status === 500) return 'Erro interno do servidor';
     return 'Falha ao carregar personagens. Verifique sua conexão.';
   }
 
-  // Métodos de arrasto do carrossel
   startDrag(event: MouseEvent | TouchEvent) {
     if (!this.carousel?.nativeElement) return;
 
@@ -168,7 +146,6 @@ export class CarroselCardsPComponent implements OnInit, OnDestroy {
     this.scrollLeft = this.carousel.nativeElement.scrollLeft;
     this.carousel.nativeElement.style.cursor = 'grabbing';
 
-    // Previne comportamento padrão para touch
     if (event instanceof TouchEvent) {
       event.preventDefault();
     }
@@ -196,19 +173,16 @@ export class CarroselCardsPComponent implements OnInit, OnDestroy {
     this.carousel.nativeElement.scrollLeft = newScrollLeft;
   }
 
-  // Método para obter coordenada X de forma genérica
   private getClientX(event: MouseEvent | TouchEvent): number {
     return event instanceof MouseEvent
       ? event.pageX
       : event.touches[0].pageX;
   }
 
-  // Método para tentar recarregar manualmente
   retryLoadCharacters() {
     this.loadCharacters(true);
   }
 
-  // Método para prevenir arrasto padrão
   preventDrag(event: DragEvent) {
     event.preventDefault();
   }

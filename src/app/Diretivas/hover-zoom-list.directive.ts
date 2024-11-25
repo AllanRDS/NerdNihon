@@ -1,10 +1,15 @@
-import { Directive, ElementRef, Renderer2, HostListener } from '@angular/core';
+import { Directive, ElementRef, Renderer2, HostListener, OnDestroy } from '@angular/core';
 
 @Directive({
   selector: '[hoverZoomList]'
 })
-export class HoverZoomListDirective {
-  constructor(private el: ElementRef, private renderer: Renderer2) {}
+export class HoverZoomListDirective implements OnDestroy {
+  private resizeListener: () => void;
+
+  constructor(private el: ElementRef, private renderer: Renderer2) {
+    this.resizeListener = this.onResize.bind(this);
+    window.addEventListener('resize', this.resizeListener);
+  }
 
   @HostListener('mouseenter') onMouseEnter() {
     this.applyHoverEffects();
@@ -18,35 +23,59 @@ export class HoverZoomListDirective {
     const content = this.el.nativeElement.querySelector('.card-content');
     const starIcon = this.el.nativeElement.querySelector('ion-icon');
 
-    // Verifica se a largura da tela é maior ou igual a 768px (tamanho md do Tailwind)
     if (window.innerWidth >= 768) {
       if (content) {
-        this.renderer.setStyle(content, 'opacity', '1'); // Aumenta a opacidade do texto
+        this.renderer.setStyle(content, 'opacity', '1');
       }
       if (starIcon) {
-        this.renderer.setStyle(starIcon, 'opacity', '1'); // Aumenta a opacidade do ícone
+        this.renderer.setStyle(starIcon, 'opacity', '1');
       }
     }
 
-    // Aplica o efeito de zoom
-    this.renderer.setStyle(this.el.nativeElement, 'transform', 'scale(1.05)'); // Aplica o efeito de zoom
+    this.renderer.setStyle(this.el.nativeElement, 'transform', 'scale(1.05)');
   }
 
   private resetHoverEffects() {
     const content = this.el.nativeElement.querySelector('.card-content');
     const starIcon = this.el.nativeElement.querySelector('ion-icon');
 
-    // Verifica se a largura da tela é maior ou igual a 768px (tamanho md do Tailwind)
     if (window.innerWidth >= 768) {
       if (content) {
-        this.renderer.setStyle(content, 'opacity', '0'); // Reduz a opacidade do texto para 0
+        this.renderer.setStyle(content, 'opacity', '0');
       }
       if (starIcon) {
-        this.renderer.setStyle(starIcon, 'opacity', '0'); // Reduz a opacidade do ícone para 0
+        this.renderer.setStyle(starIcon, 'opacity', '0');
       }
     }
+    this.renderer.setStyle(this.el.nativeElement, 'transform', 'scale(1)');
+  }
 
-    // Remove o efeito de zoom
-    this.renderer.setStyle(this.el.nativeElement, 'transform', 'scale(1)'); // Remove o efeito de zoom
+  private onResize() {
+    if (window.innerWidth < 768) {
+      const content = this.el.nativeElement.querySelector('.card-content');
+      const starIcon = this.el.nativeElement.querySelector('ion-icon');
+
+      if (content) {
+        this.renderer.setStyle(content, 'opacity', '1');
+      }
+      if (starIcon) {
+        this.renderer.setStyle(starIcon, 'opacity', '1');
+      }
+    }
+    else if (window.innerWidth > 768) {
+      const content = this.el.nativeElement.querySelector('.card-content');
+      const starIcon = this.el.nativeElement.querySelector('ion-icon');
+
+      if (content) {
+        this.renderer.setStyle(content, 'opacity', '0');
+      }
+      if (starIcon) {
+        this.renderer.setStyle(starIcon, 'opacity', '0');
+      }
+    }
+  }
+
+  ngOnDestroy() {
+    window.removeEventListener('resize', this.resizeListener);
   }
 }
