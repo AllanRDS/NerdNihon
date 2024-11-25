@@ -13,56 +13,56 @@
 - **Hospedagem:** Vercel
 
 
-## Estrutura de Pastas
+## 📂 Estrutura do Projeto
 
-```tree
-projeto-anime-explorer/
+```
+projeto-OtakuLounge/
 │
-├── src/
-│   ├── app/
-│   │   ├── Componentes/
-│   │   │   ├── card-list-selector/
-│   │   │   ├── carrosel/
-│   │   │   ├── carrosel-cards/
-│   │   │   ├── carrosel-cards-p/
-│   │   │   ├── footer/
-│   │   │   ├── navbar/
-│   │   │   └── transicao/
+├── 📁 src/
+│   ├── 📦 app/
+│   │   ├── 🧩 Componentes/
+│   │   │   ├── 🃏 card-list-selector/
+│   │   │   ├── 🎠 carrosel/
+│   │   │   ├── 🖼️ carrosel-cards/
+│   │   │   ├── 🖼️ carrosel-cards-p/
+│   │   │   ├── 🔻 footer/
+│   │   │   ├── 🧭 navbar/
+│   │   │   └── 🔄 transicao/
 │   │   │
-│   │   ├── Diretivas/
-│   │   │   ├── hover-zoom.directive.ts
-│   │   │   └── hover-zoom-list.directive.ts
+│   │   ├── 🎯 Diretivas/
+│   │   │   ├── 🔍 hover-zoom.directive.ts
+│   │   │   └── 🔎 hover-zoom-list.directive.ts
 │   │   │
-│   │   ├── Paginas/
-│   │   │   ├── home/
-│   │   │   ├── anime/
-│   │   │   └── filme/
+│   │   ├── 📄 Paginas/
+│   │   │   ├── 🏠 home/
+│   │   │   ├── 🎬 anime/
+│   │   │   └── 🍿 filme/
 │   │   │
-│   │   ├── Pipes/
-│   │   │   └── truncate.pipe.ts
+│   │   ├── 🔧 Pipes/
+│   │   │   └── ✂️ truncate.pipe.ts
 │   │   │
-│   │   ├── Services/
-│   │   │   ├── anime.service.ts
-│   │   │   ├── animefilter.service.ts
-│   │   │   └── moviefilter.service.ts
+│   │   ├── 🌐 Services/
+│   │   │   ├── 🤖 anime.service.ts
+│   │   │   ├── 🔍 animefilter.service.ts
+│   │   │   └── 🎥 moviefilter.service.ts
 │   │   │
-│   │   └── core/
-│   │       ├── interceptors/
-│   │       │   └── robust-http.interceptor.ts
-│   │       └── core.module.ts
+│   │   └── 🛡️ core/
+│   │       ├── 🔒 interceptors/
+│   │       │   └── 🚦 robust-http.interceptor.ts
+│   │       └── 📡 core.module.ts
 │   │
-│   ├── assets/
-│   │   └── img/
+│   ├── 🖼️ assets/
+│   │   └── 📷 img/
 │   │
-│   ├── index.html
-│   ├── main.ts
-│   └── styles.css
+│   ├── 📄 index.html
+│   ├── 🚀 main.ts
+│   └── 🎨 styles.css
 │
-├── node_modules/
-├── angular.json
-├── package.json
-├── tailwind.config.js
-└── tsconfig.json
+├── 📦 node_modules/
+├── ⚙️ angular.json
+├── 📦 package.json
+├── 🌈 tailwind.config.js
+└── 🛠️ tsconfig.json
 ```
 
 ## Funcionalidades
