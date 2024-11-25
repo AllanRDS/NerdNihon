@@ -22,8 +22,8 @@ projeto-OtakuLounge/
 │   │   ├── 🧩 Componentes/
 │   │   │   ├── 🃏 card-list-selector/
 │   │   │   ├── 🎠 carrosel/
-│   │   │   ├── 🖼️ carrosel-cards/
-│   │   │   ├── 🖼️ carrosel-cards-p/
+│   │   │   ├── 🎠 carrosel-cards/
+│   │   │   ├── 🎠 carrosel-cards-p/
 │   │   │   ├── 🔻 footer/
 │   │   │   ├── 🧭 navbar/
 │   │   │   └── 🔄 transicao/
