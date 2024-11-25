@@ -65,7 +65,8 @@
 
 O projeto está hospedado no Vercel. Você pode acessá-lo através do seguinte link:
 
-[Projeto Otaku Lounge no Vercel](https://seu-link-no-vercel.vercel.app)
+
+[Projeto Otaku Lounge no Vercel](otaku-lounge.vercel.app)
 
 ## Licença
 Este projeto está licenciado sob a [MIT License](LICENSE).
