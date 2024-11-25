@@ -14,6 +14,8 @@
 
 
 ## Estrutura de Pastas
+
+```tree
 projeto-anime-explorer/
 │
 ├── src/
@@ -61,6 +63,7 @@ projeto-anime-explorer/
 ├── package.json
 ├── tailwind.config.js
 └── tsconfig.json
+```
 
 ## Funcionalidades
 - **Carrosel com Animes da Temporada:** Exibição dos Animes da temporada.
