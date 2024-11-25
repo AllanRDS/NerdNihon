@@ -14,54 +14,53 @@
 
 
 ## Estrutura de Pastas
-
-📁 projeto-anime-explorer/
+projeto-anime-explorer/
 │
-├── 📁 src/
-│   ├── 📁 app/
-│   │   ├── 📁 Componentes/
-│   │   │   ├── 📁 card-list-selector/
-│   │   │   ├── 📁 carrosel/
-│   │   │   ├── 📁 carrosel-cards/
-│   │   │   ├── 📁 carrosel-cards-p/
-│   │   │   ├── 📁 footer/
-│   │   │   ├── 📁 navbar/
-│   │   │   └── 📁 transicao/
+├── src/
+│   ├── app/
+│   │   ├── Componentes/
+│   │   │   ├── card-list-selector/
+│   │   │   ├── carrosel/
+│   │   │   ├── carrosel-cards/
+│   │   │   ├── carrosel-cards-p/
+│   │   │   ├── footer/
+│   │   │   ├── navbar/
+│   │   │   └── transicao/
 │   │   │
-│   │   ├── 📁 Diretivas/
+│   │   ├── Diretivas/
 │   │   │   ├── hover-zoom.directive.ts
 │   │   │   └── hover-zoom-list.directive.ts
 │   │   │
-│   │   ├── 📁 Paginas/
-│   │   │   ├── 📁 home/
-│   │   │   ├── 📁 anime/
-│   │   │   └── 📁 filme/
+│   │   ├── Paginas/
+│   │   │   ├── home/
+│   │   │   ├── anime/
+│   │   │   └── filme/
 │   │   │
-│   │   ├── 📁 Pipes/
+│   │   ├── Pipes/
 │   │   │   └── truncate.pipe.ts
 │   │   │
-│   │   ├── 📁 Services/
+│   │   ├── Services/
 │   │   │   ├── anime.service.ts
 │   │   │   ├── animefilter.service.ts
 │   │   │   └── moviefilter.service.ts
 │   │   │
-│   │   └── 📁 core/
-│   │       ├── 📁 interceptors/
+│   │   └── core/
+│   │       ├── interceptors/
 │   │       │   └── robust-http.interceptor.ts
 │   │       └── core.module.ts
 │   │
-│   ├── 📁 assets/
-│   │   └── 📁 img/
+│   ├── assets/
+│   │   └── img/
 │   │
-│   ├── 📄 index.html
-│   ├── 📄 main.ts
-│   └── 📄 styles.css
+│   ├── index.html
+│   ├── main.ts
+│   └── styles.css
 │
-├── 📁 node_modules/
-├── 📄 angular.json
-├── 📄 package.json
-├── 📄 tailwind.config.js
-└── 📄 tsconfig.json
+├── node_modules/
+├── angular.json
+├── package.json
+├── tailwind.config.js
+└── tsconfig.json
 
 ## Funcionalidades
 - **Carrosel com Animes da Temporada:** Exibição dos Animes da temporada.
