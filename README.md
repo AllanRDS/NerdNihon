@@ -1,72 +1,122 @@
-# Otaku Lounge
+# 🌟 Otaku Lounge
 
-## Descrição do Projeto
+## 📝 Descrição do Projeto
 **Otaku Lounge** é um projeto que utiliza a API da Jikan para mostrar animes mais famosos, mais curtidos, personagens favoritos, e permite a pesquisa de animes e filmes. Ele exibe detalhes completos sobre os animes, oferecendo uma interface interativa e moderna para os usuários. 
 
-## Tecnologias Utilizadas
+## 🚀 Tecnologias Utilizadas
 
-- **Frontend Framework:** Angular
-- **Design Framework:** Tailwind CSS
-- **API:** Jikan (API não oficial do MyAnimeList)
-- **Biblioteca UI:** Flowbite
-- **Ícones:** Ionicons
-- **Hospedagem:** Vercel
+- **Frontend Framework:** 🅰️ Angular
+- **Design Framework:** 🌬️ Tailwind CSS
+- **API:** 🤖 Jikan (API não oficial do MyAnimeList)
+- **Biblioteca UI:** 🎨 Flowbite
+- **Ícones:** 🎭 Ionicons
+- **Hospedagem:** ☁️ Vercel
 
+## 📂 Estrutura do Projeto
 
-## Estrutura de Pastas
+```tree
+projeto-OtakuLounge/
+│
+├── 📁 src/
+│   ├── 📦 app/
+│   │   ├── 🧩 Componentes/
+│   │   │   ├── 🃏 card-list-selector/
+│   │   │   ├── 🎠 carrosel/
+│   │   │   ├── 🎠 carrosel-cards/
+│   │   │   ├── 🎠 carrosel-cards-p/
+│   │   │   ├── 🔻 footer/
+│   │   │   ├── 🧭 navbar/
+│   │   │   └── 🔄 transicao/
+│   │   │
+│   │   ├── 🎯 Diretivas/
+│   │   │   ├── 🔍 hover-zoom.directive.ts
+│   │   │   └── 🔎 hover-zoom-list.directive.ts
+│   │   │
+│   │   ├── 📄 Paginas/
+│   │   │   ├── 🏠 home/
+│   │   │   ├── 🎬 anime/
+│   │   │   └── 🍿 filme/
+│   │   │
+│   │   ├── 🔧 Pipes/
+│   │   │   └── ✂️ truncate.pipe.ts
+│   │   │
+│   │   ├── 🌐 Services/
+│   │   │   ├── 🤖 anime.service.ts
+│   │   │   ├── 🔍 animefilter.service.ts
+│   │   │   └── 🎥 moviefilter.service.ts
+│   │   │
+│   │   └── 🛡️ core/
+│   │       ├── 🔒 interceptors/
+│   │       │   └── 🚦 robust-http.interceptor.ts
+│   │       └── 📡 core.module.ts
+│   │
+│   ├── 🖼️ assets/
+│   │   └── 📷 img/
+│   │
+│   ├── 📄 index.html
+│   ├── 🚀 main.ts
+│   └── 🎨 styles.css
+│
+├── 📦 node_modules/
+├── ⚙️ angular.json
+├── 📦 package.json
+├── 🌈 tailwind.config.js
+└── 🛠️ tsconfig.json
+```
+## ✨ Funcionalidades
+- **🎠 Carrosel com Animes da Temporada:** Exibição dos Animes da temporada.
+- **🏆 Animes Famosos:** Exibição de uma lista com os animes mais populares.
+- **👍 Animes Mais Curtidos:** Exibição de animes com mais votos ou curtidas.
+- **⭐ Personagens Favoritos:** Exibição dos personagens favoritos de uma série de anime.
+- **🔍 Pesquisa de Animes e Filmes:** Permite ao usuário pesquisar animes ou filmes pela API da Jikan.
 
+## 🚀 Como Rodar o Projeto
 
-## Funcionalidades
-- **Carrosel com Animes da Temporada:** Exibição dos Animes da temporada.
-- **Animes Famosos:** Exibição de uma lista com os animes mais populares.
-- **Animes Mais Curtidos:** Exibição de animes com mais votos ou curtidas.
-- **Personagens Favoritos:** Exibição dos personagens favoritos de uma série de anime.
-- **Pesquisa de Animes e Filmes:** Permite ao usuário pesquisar animes ou filmes pela API da Jikan.
-- **Detalhes do Anime:** Exibição de detalhes completos sobre um anime (sinopse, gênero, elenco, etc.).
-
-## Como Rodar o Projeto
-
-1. Clone o repositório:
+1. 📦 Clone o repositório:
     ```bash
     git clone <url-do-repositório>
     ```
 
-2. Navegue até a pasta do projeto:
+2. 📂 Navegue até a pasta do projeto:
     ```bash
     cd otaku-lounge
     ```
 
-3. Instale as dependências:
+3. 🔧 Instale as dependências:
     ```bash
     npm install
     ```
 
-4. Execute o servidor de desenvolvimento:
+4. 🌐 Execute o servidor de desenvolvimento:
     ```bash
     ng serve
     ```
 
-5. Acesse o projeto no navegador:
+5. 🖥️ Acesse o projeto no navegador:
     ```bash
     http://localhost:4200
     ```
 
-## Como Contribuir
+## 🤝 Como Contribuir
+- Faça um fork do projeto
+- Crie uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
+- Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
+- Push para a branch (`git push origin feature/AmazingFeature`)
+- Abra um Pull Request
 
-## Equipe
-- **Allan Reymond (Lider)**
-- **Pedro Lucas Santos**
-- **Amanda**
-- **Rafaella**
-- **Leandro**
-- **Everson**
+## 👥 Equipe
+- **👨‍💻 Allan Reymond (Lider)**
+- **👨‍💻 Pedro Lucas Santos**
+- **👩‍💻 Amanda**
+- **👩‍💻 Rafaella**
+- **👨‍💻 Leandro**
+- **👨‍💻 Everson**
 
-## Hospedagem
+## 🌐 Hospedagem
 
 O projeto está hospedado no Vercel. Você pode acessá-lo através do seguinte link:
 
+🔗 [Projeto Otaku Lounge no Vercel](otaku-lounge.vercel.app)
 
-[Projeto Otaku Lounge no Vercel](otaku-lounge.vercel.app)
-
-## Licença
-Este projeto está licenciado sob a [MIT License](LICENSE).
+## 📄 Licença
+Este projeto está licenciado sob a [MIT License](LICENSE). 📋
