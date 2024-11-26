@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { MoviefilterService } from '../../Services/moviefilter.service';
-import { of, Observable, throwError } from 'rxjs';
-import { catchError, retry, map, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-filme',
@@ -21,9 +19,6 @@ export class FilmeComponent implements OnInit {
   genres: any[] = [];
   years: string[] = [];
 
-  private isInitialLoad: boolean = true;
-  private MAX_RETRIES = 5;
-
   constructor(private moviefilterService: MoviefilterService) {}
 
   ngOnInit() {
@@ -33,77 +28,47 @@ export class FilmeComponent implements OnInit {
   loadInitialData() {
     this.isLoading = true;
 
-    this.moviefilterService.loadGenreMapping().pipe(
-      retry(this.MAX_RETRIES),
-      switchMap(() => this.safeLoadInitialFilmes()),
-      catchError(error => {
-        console.error('Erro fatal no carregamento inicial', error);
-        this.isLoading = false;
-        return throwError(() => new Error('Falha no carregamento inicial'));
-      })
-    ).subscribe({
+    // Carregar mapeamento de gêneros
+    this.moviefilterService.loadGenreMapping().subscribe({
       next: () => {
+        // Carregar filmes iniciais
+        this.getInitialFilmes();
+
+        // Carregar gêneros
         this.loadGenres();
+
+        // Carregar anos
         this.loadYears();
-        this.isLoading = false;
       },
-      error: (err) => {
-        console.error('Erro no carregamento inicial', err);
+      error: (error) => {
+        console.error('Erro ao carregar mapeamento de gêneros', error);
         this.isLoading = false;
       }
     });
   }
 
-  safeLoadInitialFilmes(): Observable<any> {
-    return this.moviefilterService.getInitialFilmes(this.currentPage).pipe(
-      retry(this.MAX_RETRIES),
-      map(response => {
-        if (!response || !response.data || response.data.length === 0) {
-          throw new Error('Nenhum filme encontrado');
-        }
-
+  getInitialFilmes() {
+    this.isLoading = true;
+    this.moviefilterService.getInitialFilmes(this.currentPage).subscribe({
+      next: (response) => {
         this.filmes = response.data;
         this.totalPages = response.pagination.last_visible_page;
-
-        return response;
-      }),
-      catchError(error => {
+        this.isLoading = false;
+      },
+      error: (error) => {
         console.error('Erro ao carregar filmes iniciais', error);
-        return this.fallbackLoadFilmes();
-      })
-    );
-  }
-
-  fallbackLoadFilmes(): Observable<any> {
-    return this.moviefilterService.getInitialFilmes(1).pipe(
-      map(response => {
-        if (!response || !response.data || response.data.length === 0) {
-          throw new Error('Falha no carregamento de fallback');
-        }
-
-        this.filmes = response.data;
-        this.totalPages = response.pagination.last_visible_page;
-
-        return response;
-      }),
-      catchError(() => {
-        this.filmes = [];
-        this.totalPages = 1;
-        return of({ data: [], pagination: { last_visible_page: 1 } });
-      })
-    );
+        this.isLoading = false;
+      }
+    });
   }
 
   loadGenres() {
-    this.moviefilterService.getAnimeGenres().pipe(
-      retry(this.MAX_RETRIES),
-      catchError(error => {
-        console.error('Erro ao carregar gêneros', error);
-        return of({ data: [] });
-      })
-    ).subscribe({
+    this.moviefilterService.getAnimeGenres().subscribe({
       next: (response) => {
-        this.genres = response.data || [];
+        this.genres = response.data;
+      },
+      error: (error) => {
+        console.error('Erro ao carregar gêneros', error);
       }
     });
   }
@@ -114,31 +79,19 @@ export class FilmeComponent implements OnInit {
 
   searchFilmes() {
     this.isLoading = true;
-    this.isInitialLoad = false;
-
     this.moviefilterService.getFilteredFilmes(
       this.searchTerm,
       this.currentPage,
       this.selectedGenre,
       this.selectedYear
-    ).pipe(
-      retry(this.MAX_RETRIES),
-      catchError(error => {
-        console.error('Erro ao buscar filmes', error);
-        this.filmes = [];
-        this.totalPages = 1;
-        this.isLoading = false;
-        return of({ data: [], pagination: { last_visible_page: 1 } });
-      })
     ).subscribe({
       next: (response) => {
-        if (response && response.data && response.data.length > 0) {
-          this.filmes = response.data;
-          this.totalPages = response.pagination.last_visible_page;
-        } else {
-          this.filmes = [];
-          this.totalPages = 1;
-        }
+        this.filmes = response.data;
+        this.totalPages = response.pagination.last_visible_page;
+        this.isLoading = false;
+      },
+      error: (error) => {
+        console.error('Erro ao buscar filmes', error);
         this.isLoading = false;
       }
     });
@@ -149,57 +102,35 @@ export class FilmeComponent implements OnInit {
     this.searchFilmes();
   }
 
-  nextPage() {
-    if (this.currentPage < this.totalPages) {
-      this.currentPage++;
-      this.loadPage();
-    }
-  }
-
-  prevPage() {
-    if (this.currentPage > 1) {
-      this.currentPage--;
-      this.loadPage();
-    }
-  }
-
-  loadPage() {
-    if (this.isInitialLoad) {
-      this.loadInitialFilmes();
-    } else {
-      this.searchFilmes();
-    }
-  }
-
-  onSearchEnter() {
-    this.currentPage = 1;
-    this.searchFilmes();
-  }
-
-  loadInitialFilmes() {
-    this.isLoading = true;
-    this.isInitialLoad = true;
-
-    this.safeLoadInitialFilmes().subscribe({
-      next: () => {
-        this.isLoading = false;
-      },
-      error: () => {
-        this.isLoading = false;
-      }
-    });
-  }
-
   // Método para extrair o ano do filme
   extractYear(filme: any): string {
-    if (filme.year) {
-      return filme.year.toString();
-    }
 
     if (filme.aired?.from) {
       return new Date(filme.aired.from).getFullYear().toString();
     }
 
     return 'N/A';
+  }
+
+  // Métodos de paginação
+  nextPage() {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+      this.searchFilmes();
+    }
+  }
+
+  prevPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.searchFilmes();
+    }
+  }
+
+  goToPage(page: number) {
+    if (page > 0 && page <= this.totalPages) {
+      this.currentPage = page;
+      this.searchFilmes();
+    }
   }
 }

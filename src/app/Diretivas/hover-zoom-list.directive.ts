@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Renderer2, HostListener, OnDestroy } from '@angular/core';
+import { Directive, ElementRef, HostListener, OnDestroy, Renderer2 } from "@angular/core";
 
 @Directive({
   selector: '[hoverZoomList]'
@@ -21,14 +21,10 @@ export class HoverZoomListDirective implements OnDestroy {
 
   private applyHoverEffects() {
     const content = this.el.nativeElement.querySelector('.card-content');
-    const starIcon = this.el.nativeElement.querySelector('ion-icon');
 
     if (window.innerWidth >= 768) {
       if (content) {
         this.renderer.setStyle(content, 'opacity', '1');
-      }
-      if (starIcon) {
-        this.renderer.setStyle(starIcon, 'opacity', '1');
       }
     }
 
@@ -37,40 +33,26 @@ export class HoverZoomListDirective implements OnDestroy {
 
   private resetHoverEffects() {
     const content = this.el.nativeElement.querySelector('.card-content');
-    const starIcon = this.el.nativeElement.querySelector('ion-icon');
 
     if (window.innerWidth >= 768) {
       if (content) {
         this.renderer.setStyle(content, 'opacity', '0');
-      }
-      if (starIcon) {
-        this.renderer.setStyle(starIcon, 'opacity', '0');
       }
     }
     this.renderer.setStyle(this.el.nativeElement, 'transform', 'scale(1)');
   }
 
   private onResize() {
-    if (window.innerWidth < 768) {
-      const content = this.el.nativeElement.querySelector('.card-content');
-      const starIcon = this.el.nativeElement.querySelector('ion-icon');
+    const content = this.el.nativeElement.querySelector('.card-content');
 
+    if (window.innerWidth < 768) {
       if (content) {
         this.renderer.setStyle(content, 'opacity', '1');
       }
-      if (starIcon) {
-        this.renderer.setStyle(starIcon, 'opacity', '1');
-      }
     }
-    else if (window.innerWidth > 768) {
-      const content = this.el.nativeElement.querySelector('.card-content');
-      const starIcon = this.el.nativeElement.querySelector('ion-icon');
-
+    else {
       if (content) {
         this.renderer.setStyle(content, 'opacity', '0');
-      }
-      if (starIcon) {
-        this.renderer.setStyle(starIcon, 'opacity', '0');
       }
     }
   }

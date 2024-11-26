@@ -170,6 +170,16 @@ export class AnimeComponent implements OnInit {
     }
   }
 
+  extractYear(anime: any): string {
+
+    if (anime.aired?.from) {
+      return new Date(anime.aired.from).getFullYear().toString();
+    }
+
+    return 'N/A';
+  }
+
+
   onSearchEnter() {
     this.currentPage = 1;
     this.searchAnimes();

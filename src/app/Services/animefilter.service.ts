@@ -37,7 +37,9 @@ export class AnimefilterService {
     let params = new HttpParams()
       .set('sfw', 'true')
       .set('type', 'tv')
-      .set('page', page.toString());
+      .set('page', page.toString())
+      .set('order_by', 'popularity')   // Ordenar por popularidade
+      .set('sort', 'asc');            // Em ordem decrescente
 
     // Adiciona termo de busca se existir
     if (searchTerm) {
@@ -51,12 +53,41 @@ export class AnimefilterService {
 
     // Adiciona ano se existir
     if (year) {
-      params = params.set('start_date', `${year}-01-01`)
-                      .set('end_date', `${year}-12-31`);
+      params = params.set('start_date', `${year}-01-01`);
     }
 
-    return this.http.get<any>(`${this.apiLink}/anime`, { params });
+    return this.http.get<any>(`${this.apiLink}/anime`, { params }).pipe(
+      map(response => {
+        // Filtrar animes baseado no ano especificado
+        let filteredData = response.data;
+
+        if (year) {
+          filteredData = filteredData.filter((anime: any) => {
+            // Verificar se o ano de lançamento do anime corresponde ao ano selecionado
+            if (anime.aired && anime.aired.from) {
+              const animeYear = new Date(anime.aired.from).getFullYear();
+              return animeYear === parseInt(year);
+            }
+            return false;
+          });
+        }
+
+        // Retornar dados filtrados junto com a paginação original
+        return {
+          ...response,
+          data: filteredData,
+          pagination: {
+            ...response.pagination,
+            items: {
+              ...response.pagination.items,
+              total: filteredData.length
+            }
+          }
+        };
+      })
+    );
   }
+
 
   // Lista de gêneros para o dropdown
   getAnimeGenres(): Observable<any> {
@@ -67,7 +98,7 @@ export class AnimefilterService {
   getAnimeYears(): string[] {
     const currentYear = new Date().getFullYear();
     return Array.from(
-      {length: 10},
+      {length: 40},
       (_, i) => (currentYear - i).toString()
     );
   }
