@@ -117,6 +117,7 @@ export class FilmeComponent implements OnInit {
     if (this.currentPage < this.totalPages) {
       this.currentPage++;
       this.searchFilmes();
+      this.scrollToTop();
     }
   }
 
@@ -124,6 +125,8 @@ export class FilmeComponent implements OnInit {
     if (this.currentPage > 1) {
       this.currentPage--;
       this.searchFilmes();
+      this.scrollToTop();
+
     }
   }
 
@@ -133,4 +136,13 @@ export class FilmeComponent implements OnInit {
       this.searchFilmes();
     }
   }
+  scrollToTop() {
+    // Método 1: Usando window.scrollTo
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  }
+
+
 }

@@ -15,7 +15,6 @@ export class HoverZoomDirective {
   }
 
   private applyHoverEffects() {
-    // Aplicando efeitos de brilho e elevação
     this.renderer.setStyle(this.el.nativeElement, 'filter', 'brightness(1.1)');
     this.renderer.setStyle(this.el.nativeElement, 'transition', 'filter 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease');
     this.renderer.setStyle(this.el.nativeElement, 'box-shadow', '0 10px 20px rgba(0, 0, 0, 0.3), 0 4px 8px rgba(0, 0, 0, 0.2)');
@@ -23,7 +22,6 @@ export class HoverZoomDirective {
   }
 
   private removeHoverEffects() {
-    // Removendo os efeitos de brilho e elevação
     this.renderer.setStyle(this.el.nativeElement, 'filter', 'brightness(1)');
     this.renderer.setStyle(this.el.nativeElement, 'box-shadow', 'none');
     this.renderer.setStyle(this.el.nativeElement, 'transform', 'translateY(0)');

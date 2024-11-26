@@ -152,6 +152,7 @@ export class AnimeComponent implements OnInit {
     if (this.currentPage < this.totalPages) {
       this.currentPage++;
       this.loadPage();
+      this.scrollToTop();
     }
   }
 
@@ -159,6 +160,7 @@ export class AnimeComponent implements OnInit {
     if (this.currentPage > 1) {
       this.currentPage--;
       this.loadPage();
+      this.scrollToTop();
     }
   }
 
@@ -198,4 +200,15 @@ export class AnimeComponent implements OnInit {
       }
     });
   }
+
+  scrollToTop() {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  }
+
+
+
+
 }

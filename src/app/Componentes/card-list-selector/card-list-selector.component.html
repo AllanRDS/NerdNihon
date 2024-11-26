@@ -20,7 +20,7 @@
     </button>
   </div>
   <div class="card-list grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
-    <div *ngFor="let item of filteredList" class="card-item relative rounded-lg overflow-hidden group" hoverZoomList>
+    <div *ngFor="let item of filteredList" class="card-item relative rounded-lg overflow-hidden group cursor-pointer" hoverZoomList>
       <div class="card-image-container h-48 sm:h-56 md:h-64 w-full">
         <img [src]="item.images?.jpg?.large_image_url || item.poster_path" alt="{{ item.title }}"
           class="w-full h-full object-cover object-center" />
