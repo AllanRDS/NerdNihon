@@ -14,7 +14,7 @@
 
 ## 📂 Estrutura do Projeto
 
-```tree
+```
 projeto-OtakuLounge/
 │
 ├── 📁 src/
@@ -51,19 +51,19 @@ projeto-OtakuLounge/
 │   │       └── 📡 core.module.ts
 │   │
 │   ├── 🖼️ assets/
-│   │   ├── 📷 img/
-│   │   │   ├── Anime-CasaFundo.png            # Fundo da Pesquisa da pagina Anime
-│   │   │   ├── Filme-SliceFundo.jpg           # Fundo da Pesquisa da pagina Filme
-│   │   │   └── Transição-FrierenFundo.jpeg    # Fundo do Componente de Transição utilizado na pagina Home
-│   │   │
 │   │   ├── 🎨 fonts/
-│   │   │   ├── Arcade_I.ttf                   # Fonte da Logo
-│   │   │   ├── Arcade_N.ttf                   # Fonte da Logo
-│   │   │   └── Arcade_R.ttf                   # Fonte da Logo
+│   │   │   ├── Arcade_I.ttf                   
+│   │   │   ├── Arcade_N.ttf                   
+│   │   │   └── Arcade_R.ttf                   
 │   │   │
 │   │   ├── 📱 icons/
-│   │   │   └── Logo-TemaClaro.svg             # Logo Branco para Fundo Escuro
-│   │
+│   │   │   └── Logo-TemaClaro.svg             
+│   │   │
+│   │   ├── 📷 img/
+│   │   │   ├── Anime-CasaFundo.png            
+│   │   │   ├── Filme-SliceFundo.jpg           
+│   │   │   └── Transição-FrierenFundo.jpeg    
+│   │   │
 │   ├── 📄 index.html
 │   ├── 🚀 main.ts
 │   └── 🎨 styles.css
