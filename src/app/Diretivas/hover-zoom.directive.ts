@@ -15,17 +15,17 @@ export class HoverZoomDirective {
   }
 
   private applyHoverEffects() {
-    const children = this.el.nativeElement.children;
-    for (let i = 0; i < children.length; i++) {
-      this.renderer.setStyle(children[i], 'transform', 'scale(1.05)');
-      this.renderer.setStyle(children[i], 'transition', 'transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)');
-    }
+    // Aplicando efeitos de brilho e elevação
+    this.renderer.setStyle(this.el.nativeElement, 'filter', 'brightness(1.1)');
+    this.renderer.setStyle(this.el.nativeElement, 'transition', 'filter 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease');
+    this.renderer.setStyle(this.el.nativeElement, 'box-shadow', '0 10px 20px rgba(0, 0, 0, 0.3), 0 4px 8px rgba(0, 0, 0, 0.2)');
+    this.renderer.setStyle(this.el.nativeElement, 'transform', 'translateY(-6px)');
   }
 
   private removeHoverEffects() {
-    const children = this.el.nativeElement.children;
-    for (let i = 0; i < children.length; i++) {
-      this.renderer.setStyle(children[i], 'transform', 'scale(1)');
-    }
+    // Removendo os efeitos de brilho e elevação
+    this.renderer.setStyle(this.el.nativeElement, 'filter', 'brightness(1)');
+    this.renderer.setStyle(this.el.nativeElement, 'box-shadow', 'none');
+    this.renderer.setStyle(this.el.nativeElement, 'transform', 'translateY(0)');
   }
 }
