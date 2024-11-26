@@ -39,7 +39,9 @@ export class MoviefilterService {
       .set('type', 'movie')
       .set('page', page.toString())
       .set('order_by', 'popularity')   // Ordenar por popularidade
-      .set('sort', 'asc');             // Em ordem decrescente
+      .set('sort', 'asc')
+      .set('limit', '24'); // Limitar a 24 animes por página
+      // Em ordem decrescente
 
     // Adiciona termo de busca se existir
     if (searchTerm) {
@@ -103,6 +105,6 @@ export class MoviefilterService {
   }
 
   getInitialFilmes(page: number) {
-    return this.http.get<any>(`${this.apiLink}/anime?type=movie&page=${page}&order_by=popularity`);
+    return this.http.get<any>(`${this.apiLink}/anime?type=movie&page=${page}&order_by=popularity&limit=24`);
   }
 }

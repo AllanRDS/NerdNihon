@@ -39,7 +39,8 @@ export class AnimefilterService {
       .set('type', 'tv')
       .set('page', page.toString())
       .set('order_by', 'popularity')   // Ordenar por popularidade
-      .set('sort', 'asc');            // Em ordem decrescente
+      .set('sort', 'asc')         // Em ordem decrescente
+      .set('limit', '24'); // Limitar a 24 animes por página
 
     // Adiciona termo de busca se existir
     if (searchTerm) {
@@ -104,6 +105,6 @@ export class AnimefilterService {
   }
 
   getInitialAnimes(page: number) {
-    return this.http.get<any>(`${this.apiLink}/anime?type=tv&page=${page}&order_by=popularity`);
+    return this.http.get<any>(`${this.apiLink}/anime?type=tv&page=${page}&order_by=popularity&limit=24`);
   }
 }
