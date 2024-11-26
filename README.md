@@ -17,62 +17,62 @@
 ```
 projeto-OtakuLounge/
 │
-├── 📁 src/
-│   ├── 📦 app/
-│   │   ├── 🧩 Componentes/
-│   │   │   ├── 🃏 card-list-selector/
+├── 📂 src/
+│   ├── 📁 app/
+│   │   ├── 📂 componentes/
+│   │   │   ├── 📦 card-list-selector/
 │   │   │   ├── 🎠 carrosel/
-│   │   │   ├── 🎠 carrosel-cards/
-│   │   │   ├── 🎠 carrosel-cards-p/
-│   │   │   ├── 🔻 footer/
+│   │   │   ├── 🎴 carrosel-cards/
+│   │   │   ├── 🎴 carrosel-cards-p/
+│   │   │   ├── 📉 footer/
 │   │   │   ├── 🧭 navbar/
-│   │   │   └── 🔄 transicao/
+│   │   │   └── 🎭 transicao/
 │   │   │
-│   │   ├── 🎯 Diretivas/
-│   │   │   ├── 🔍 hover-zoom.directive.ts
-│   │   │   └── 🔎 hover-zoom-list.directive.ts
+│   │   ├── 📂 diretivas/
+│   │   │   ├── 🎯 hover-zoom.directive.ts
+│   │   │   └── 🎯 hover-zoom-list.directive.ts
 │   │   │
-│   │   ├── 📄 Paginas/
+│   │   ├── 📂 paginas/
 │   │   │   ├── 🏠 home/
 │   │   │   ├── 🎬 anime/
 │   │   │   └── 🍿 filme/
 │   │   │
-│   │   ├── 🔧 Pipes/
+│   │   ├── 📂 pipes/
 │   │   │   └── ✂️ truncate.pipe.ts
 │   │   │
-│   │   ├── 🌐 Services/
+│   │   ├── 📂 services/
 │   │   │   ├── 🤖 anime.service.ts
 │   │   │   ├── 🔍 animefilter.service.ts
 │   │   │   └── 🎥 moviefilter.service.ts
 │   │   │
-│   │   └── 🛡️ core/
+│   │   └── 📂 core/
 │   │       ├── 🔒 interceptors/
 │   │       │   └── 🚦 robust-http.interceptor.ts
 │   │       └── 📡 core.module.ts
 │   │
 │   ├── 🖼️ assets/
-│   │   ├── 🎨 fonts/
-│   │   │   ├── Arcade_I.ttf                   
-│   │   │   ├── Arcade_N.ttf                   
-│   │   │   └── Arcade_R.ttf                   
+│   │   ├── ✏️ fonts/
+│   │   │   ├── 🅰 Arcade_I.ttf
+│   │   │   ├── 🅰 Arcade_N.ttf
+│   │   │   └── 🅰 Arcade_R.ttf
 │   │   │
-│   │   ├── 📱 icons/
-│   │   │   └── Logo-TemaClaro.svg             
+│   │   ├── 🖍️ icons/
+│   │   │   └── 🔆 Logo-TemaClaro.svg
 │   │   │
-│   │   ├── 📷 img/
-│   │   │   ├── Anime-CasaFundo.png            
-│   │   │   ├── Filme-SliceFundo.jpg           
-│   │   │   └── Transição-FrierenFundo.jpeg    
-│   │   │
-│   ├── 📄 index.html
+│   │   ├── 🖼️ img/
+│   │   │   ├── 🖼️ Anime-CasaFundo.png
+│   │   │   ├── 🖼️ Filme-SliceFundo.jpg
+│   │   │   └── 🖼️ Transição-FrierenFundo.jpeg
+│   │
+│   ├── 📜 index.html
 │   ├── 🚀 main.ts
 │   └── 🎨 styles.css
 │
 ├── 📦 node_modules/
 ├── ⚙️ angular.json
 ├── 📦 package.json
-├── 🌈 tailwind.config.js
-└── 🛠️ tsconfig.json
+├── 🎨 tailwind.config.js
+└── ⚙️ tsconfig.json
 ```
 
 ## ✨ Funcionalidades
