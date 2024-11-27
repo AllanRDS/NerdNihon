@@ -45,10 +45,18 @@ projeto-OtakuLounge/
 │   │   │   ├── 🔍 animefilter.service.ts
 │   │   │   └── 🎥 moviefilter.service.ts
 │   │   │
-│   │   └── 📂 core/
-│   │       ├── 🔒 interceptors/
-│   │       │   └── 🚦 robust-http.interceptor.ts
-│   │       └── 📡 core.module.ts
+│   │   ├── 📂 core/
+│   │   │   ├── 🔒 interceptors/
+│   │   │   │   └── 🚦 robust-http.interceptor.ts
+│   │   │   └── 📡 core.module.ts
+│   │   │
+│   │   ├── 📄 app.component.ts          
+│   │   ├── 🎨 app.component.css        
+│   │   ├── 📄 app.component.html        
+│   │   ├── 📄 app.component.spec.ts     
+│   │   ├── 📄 app-routing.module.ts     
+│   │   ├── 📄 app.module.ts            
+│   │   └── 📄 app.module.server.ts     
 │   │
 │   ├── 🖼️ assets/
 │   │   ├── ✏️ fonts/
@@ -73,6 +81,7 @@ projeto-OtakuLounge/
 ├── 📦 package.json
 ├── 🎨 tailwind.config.js
 └── ⚙️ tsconfig.json
+
 ```
 
 ## ✨ Funcionalidades
