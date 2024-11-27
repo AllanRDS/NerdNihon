@@ -125,7 +125,7 @@ export class AnimeComponent implements OnInit {
       catchError(error => {
         console.error('Erro ao buscar animes', error);
         this.animes = [];
-        this.totalPages = 1; // Define totalPages como 1 se não houver dados
+        this.totalPages = 1;
         this.isLoading = false;
         return of({ data: [], pagination: { last_visible_page: 1 } });
       })
@@ -133,10 +133,10 @@ export class AnimeComponent implements OnInit {
       next: (response) => {
         if (response && response.data && response.data.length > 0) {
           this.animes = response.data;
-          this.totalPages = response.pagination.last_visible_page; // Atualiza o total de páginas
+          this.totalPages = response.pagination.last_visible_page;
         } else {
           this.animes = [];
-          this.totalPages = 1; // Define totalPages como 1 se não houver dados
+          this.totalPages = 1;
         }
         this.isLoading = false;
       }
@@ -207,8 +207,4 @@ export class AnimeComponent implements OnInit {
       behavior: 'smooth'
     });
   }
-
-
-
-
 }

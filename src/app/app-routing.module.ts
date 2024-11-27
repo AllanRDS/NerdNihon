@@ -8,7 +8,7 @@ const routes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'anime', component: AnimeComponent},
   {path: 'filme', component: FilmeComponent},
-  { path: '**', redirectTo: '' } // Rota de fallback
+  { path: '**', redirectTo: '' }
 
 ];
 

@@ -31,7 +31,7 @@ export class AnimefilterService {
     year: string = ''
   ): Observable<any> {
     let params = new HttpParams()
-      .set('sfw', 'true')
+      .set('sfw', 'true') // Retira contéudo adulto
       .set('type', 'tv')
       .set('page', page.toString())
       .set('order_by', 'popularity')
