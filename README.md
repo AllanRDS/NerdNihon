@@ -125,14 +125,6 @@ projeto-OtakuLounge/
 - Push para a branch (`git push origin feature/AmazingFeature`)
 - Abra um Pull Request
 
-## 👥 Equipe
-- **👨‍💻 Allan Reymond (Lider)**
-- **👨‍💻 Pedro Lucas Santos**
-- **👩‍💻 Amanda**
-- **👩‍💻 Rafaella**
-- **👨‍💻 Leandro**
-- **👨‍💻 Everson**
-
 ## 🌐 Hospedagem
 
 O projeto está hospedado no Vercel. Você pode acessá-lo através do seguinte link:
